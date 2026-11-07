@@ -180,8 +180,118 @@ header, main, footer { position: relative; z-index: 1; }
 }
 
 </style>
+<style>
+/* Premium loading screen */
+#site-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(117, 82, 255, .22), transparent 34%),
+    radial-gradient(circle at 82% 78%, rgba(0, 220, 190, .15), transparent 32%),
+    #080b18;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .75s ease, visibility .75s ease;
+}
+#site-loader.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.loader-content {
+  width: min(360px, 86vw);
+  text-align: center;
+}
+.loader-orbit {
+  width: 62px;
+  height: 62px;
+  margin: 0 auto 28px;
+  border: 1px solid rgba(255,255,255,.13);
+  border-radius: 50%;
+  position: relative;
+  animation: loader-spin 2.2s linear infinite;
+}
+.loader-orbit::before,
+.loader-orbit::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+}
+.loader-orbit::before {
+  width: 9px;
+  height: 9px;
+  top: -4px;
+  left: 26px;
+  background: #8d7aff;
+  box-shadow: 0 0 18px #8d7aff, 0 0 34px rgba(141,122,255,.65);
+}
+.loader-orbit::after {
+  inset: 10px;
+  border: 1px solid rgba(0, 224, 198, .45);
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  animation: loader-spin 1.4s linear infinite reverse;
+}
+.loader-kicker {
+  color: rgba(225,230,255,.62);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .34em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.loader-title {
+  color: #f6f7ff;
+  font-size: clamp(20px, 5vw, 25px);
+  font-weight: 700;
+  letter-spacing: .16em;
+  margin: 0 0 25px;
+}
+.loader-track {
+  height: 3px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: rgba(255,255,255,.12);
+}
+.loader-progress {
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #8d7aff, #00dec6);
+  box-shadow: 0 0 16px rgba(0,222,198,.5);
+  transition: width .25s ease;
+}
+.loader-status {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 11px;
+  color: rgba(225,230,255,.55);
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+@keyframes loader-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  #site-loader, .loader-orbit, .loader-orbit::after, .loader-progress { animation: none !important; transition: none !important; }
+}
+</style>
 </head>
 <body>
+
+<div id="site-loader" role="status" aria-label="Loading website">
+  <div class="loader-content">
+    <div class="loader-orbit" aria-hidden="true"></div>
+    <div class="loader-kicker">WELCOME TO</div>
+    <p class="loader-title">ARGHYA ZEO</p>
+    <div class="loader-track" aria-hidden="true"><div class="loader-progress" id="loader-progress"></div></div>
+    <div class="loader-status"><span id="loader-message">Preparing experience</span><span id="loader-percent">0%</span></div>
+  </div>
+</div>
+
 <header class="wrap">
 <nav class="nav" aria-label="Main navigation">
 <a class="brand" href="#home">AR<span style="color:var(--accent)">.</span></a>
@@ -300,6 +410,56 @@ header, main, footer { position: relative; z-index: 1; }
   // Keep the copyright year current.
   const year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
+})();
+</script>
+
+
+<script>
+(() => {
+  const loader = document.getElementById('site-loader');
+  if (!loader) return;
+
+  const bar = document.getElementById('loader-progress');
+  const percent = document.getElementById('loader-percent');
+  const message = document.getElementById('loader-message');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const startedAt = Date.now();
+  let progress = 0;
+  let loaded = document.readyState === 'complete';
+  let finished = false;
+
+  document.body.style.overflow = 'hidden';
+
+  const update = (value) => {
+    progress = Math.max(progress, Math.min(100, value));
+    if (bar) bar.style.width = progress + '%';
+    if (percent) percent.textContent = Math.round(progress) + '%';
+    if (message && progress > 72) message.textContent = 'Finishing details';
+  };
+
+  const ticker = window.setInterval(() => {
+    if (finished) return;
+    if (!loaded) {
+      update(Math.min(88, progress + Math.max(.35, (88 - progress) * .055)));
+    } else {
+      update(100);
+      const wait = Math.max(250, 850 - (Date.now() - startedAt));
+      window.setTimeout(() => {
+        if (finished) return;
+        finished = true;
+        loader.classList.add('is-hidden');
+        document.body.style.overflow = '';
+        window.clearInterval(ticker);
+        window.setTimeout(() => loader.remove(), reducedMotion ? 0 : 850);
+      }, wait);
+      window.clearInterval(ticker);
+    }
+  }, reducedMotion ? 80 : 45);
+
+  window.addEventListener('load', () => { loaded = true; }, { once: true });
+
+  // Safety fallback: never leave the page covered if a resource stalls.
+  window.setTimeout(() => { loaded = true; }, 5000);
 })();
 </script>
 
