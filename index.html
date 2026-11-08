@@ -2,12 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#10131f">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#06070c">
+<meta name="color-scheme" content="dark light">
 <meta name="description" content="Arghya Sarkar, also known online as Arghya Zeo. Visit his personal profile, school projects and public Instagram account.">
 <meta name="robots" content="index, follow">
 <title>Arghya Sarkar (Arghya Zeo) | Personal Website</title>
 <link rel="canonical" href="https://arghya-zeo.github.io/arghya-website/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%2310131f'/%3E%3Ctext x='32' y='43' font-family='Arial,sans-serif' font-size='32' font-weight='800' text-anchor='middle' fill='%23e3c79b'%3EA%3C/text%3E%3C/svg%3E">
 <meta property="og:type" content="profile">
 <meta property="og:title" content="Arghya Sarkar (Arghya Zeo) | Personal Website">
 <meta property="og:description" content="The personal website of Arghya Sarkar, also known online as Arghya Zeo.">
@@ -37,22 +39,22 @@
 }
 </script>
 <script>
-/* Apply saved / system theme before first paint to avoid a flash. */
+/* Runs before first paint: flag JS, apply saved / system theme (no flash). */
 (function () {
+  var d = document.documentElement;
+  d.classList.add("js");
   try {
     var t = localStorage.getItem("theme");
     if (t !== "light" && t !== "dark") {
-      t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
     }
-    document.documentElement.setAttribute("data-theme", t);
+    d.setAttribute("data-theme", t);
   } catch (e) {
-    document.documentElement.setAttribute("data-theme", "dark");
+    d.setAttribute("data-theme", "dark");
   }
 })();
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..900&display=swap">
+<link rel="preload" as="image" href="profile.jpg" fetchpriority="high">
 <style>
 /* ---------- Animatable ambient colours (graceful fallback: instant swap) ---------- */
 @property --amb1{syntax:"<color>";inherits:true;initial-value:rgba(0,0,0,0)}
@@ -64,13 +66,11 @@
   color-scheme:dark;
   --bg:#06070c;--text:#f6f4ef;--muted:#a8a8b8;--accent:#e3c79b;--accent2:#a8d3f5;--line:rgba(255,255,255,.11);
   --radius:24px;--max:1050px;
-  /* Midnight graphite with champagne-gold and deep violet glow */
+  --ease:cubic-bezier(.32,.72,0,1);--ease-out:cubic-bezier(.22,1,.36,1);
   --amb1:rgba(70,58,190,.30);--amb2:rgba(222,178,112,.13);--amb3:rgba(40,110,150,.14);
-  --cursor-glow:rgba(227,199,155,.08);
   --h1a:#ffffff;--h1b:#f0dfc3;--h1c:#b4c6ff;
   --avatar-border:rgba(227,199,155,.75);--avatar-ring:rgba(227,199,155,.06);
 
-  /* Liquid glass */
   --glass-bg:rgba(22,25,45,.50);
   --glass-hover-bg:rgba(30,34,60,.60);
   --glass-border:rgba(255,255,255,.13);
@@ -80,20 +80,20 @@
   --glass-shadow-hover:0 20px 46px rgba(0,0,0,.36),0 4px 12px rgba(0,0,0,.24);
   --spec:rgba(255,255,255,.15);
   --sheen:rgba(255,255,255,.07);
-  --link-hover:rgba(255,255,255,.08);
+  --link-hover:rgba(255,255,255,.09);
   --ripple:rgba(255,255,255,.30);
   --primary-bg:linear-gradient(180deg,rgba(240,214,170,.46),rgba(196,154,96,.30));
   --primary-border:rgba(255,255,255,.30);
   --primary-color:#ffffff;
   --focus:#85e0d0;
+  --orb1:rgba(106,88,230,.30);--orb2:rgba(227,199,155,.18);--orb3:rgba(70,160,220,.20);--orb4:rgba(130,100,255,.16);
+  --grain:.05;
 }
 /* ---------- Theme tokens: light ---------- */
 :root[data-theme="light"]{
   color-scheme:light;
   --bg:#f4f1ec;--text:#15131c;--muted:#52505e;--accent:#7a5a2a;--accent2:#2a5f8f;--line:rgba(30,24,16,.12);
-  /* Warm ivory with soft gold and lilac light */
   --amb1:rgba(236,200,140,.34);--amb2:rgba(170,150,255,.20);--amb3:rgba(150,190,235,.20);
-  --cursor-glow:rgba(122,90,42,.08);
   --h1a:#15131c;--h1b:#7a5a2a;--h1c:#3f3a9e;
   --avatar-border:rgba(122,90,42,.55);--avatar-ring:rgba(122,90,42,.07);
 
@@ -106,14 +106,15 @@
   --glass-shadow-hover:0 18px 42px rgba(40,50,100,.17),0 4px 10px rgba(40,50,100,.09),0 0 0 1px rgba(30,35,70,.06);
   --spec:rgba(255,255,255,.95);
   --sheen:rgba(255,255,255,.55);
-  --link-hover:rgba(20,24,50,.06);
+  --link-hover:rgba(20,24,50,.07);
   --ripple:rgba(90,63,209,.20);
   --primary-bg:linear-gradient(180deg,rgba(52,48,66,.96),rgba(24,22,32,.96));
   --primary-border:rgba(255,255,255,.45);
   --primary-color:#ffffff;
   --focus:#7a5a2a;
+  --orb1:rgba(150,122,255,.26);--orb2:rgba(236,190,120,.34);--orb3:rgba(110,180,235,.26);--orb4:rgba(255,160,150,.22);
+  --grain:.07;
 }
-/* Browsers without backdrop-filter get more opaque surfaces so text stays readable */
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
   :root{--glass-bg:rgba(24,28,46,.92);--glass-hover-bg:rgba(32,37,60,.96)}
   :root[data-theme="light"]{--glass-bg:rgba(255,255,255,.92);--glass-hover-bg:rgba(255,255,255,.97)}
@@ -122,8 +123,7 @@
 /* ---------- Base ---------- */
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;-webkit-text-size-adjust:100%;text-size-adjust:100%;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;color:var(--text);background-color:var(--bg);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65;transition:background-color .5s ease,color .5s ease}
-/* Fixed ambient colour field – gives the glass something soft to refract */
+body{margin:0;-webkit-text-size-adjust:100%;text-size-adjust:100%;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;color:var(--text);background-color:var(--bg);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;line-height:1.65;transition:background-color .5s ease,color .5s ease}
 body::after{
   content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
   background:
@@ -136,6 +136,26 @@ main,footer{position:relative;z-index:1}
 a{color:inherit}
 .wrap{width:min(var(--max),calc(100% - 36px));margin-inline:auto}
 :focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:12px}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:fixed;left:16px;top:-64px;z-index:100;padding:10px 18px;border-radius:999px;background:var(--text);color:var(--bg);font-weight:700;font-size:.9rem;text-decoration:none;transition:top .3s var(--ease)}
+.skip:focus{top:14px}
+
+/* Film grain: one static, tiled layer (no blend modes, so scrolling stays cheap) */
+.grain{
+  position:fixed;inset:0;z-index:2;pointer-events:none;opacity:var(--grain);background:var(--text);
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  -webkit-mask-size:160px;mask-size:160px;
+}
+
+/* Scroll progress: runs on the compositor where scroll-driven animations exist, JS fallback elsewhere */
+.progress{position:fixed;inset:0 0 auto 0;height:2px;z-index:90;pointer-events:none;transform-origin:0 50%;transform:scaleX(var(--p,0));background:linear-gradient(90deg,var(--accent),var(--accent2))}
+@keyframes progress-grow{to{transform:scaleX(1)}}
+@supports (animation-timeline:scroll()){
+  @media (prefers-reduced-motion:no-preference){
+    .progress{transform:scaleX(0);animation:progress-grow linear both;animation-timeline:scroll(root block)}
+  }
+}
 
 /* ---------- Liquid glass surfaces ---------- */
 :root{--glass-inset:inset 0 1px 0 var(--edge-top),inset 0 -1px 0 var(--edge-bot)}
@@ -147,9 +167,14 @@ a{color:inherit}
   border:1px solid var(--glass-border);
   box-shadow:var(--glass-inset),var(--glass-shadow);
   -webkit-tap-highlight-color:transparent;
-  transition:transform .35s cubic-bezier(.32,.72,0,1),background-color .35s ease,border-color .35s ease,box-shadow .35s ease,color .35s ease;
+  transition:transform .35s var(--ease),background-color .35s ease,border-color .35s ease,box-shadow .35s ease,color .35s ease;
 }
-/* Specular highlight + soft top sheen (sits under content, above the surface) */
+/* Cards/profile get their transform from the JS tilt loop, so transform is NOT transitioned here (no double smoothing) */
+.card,.profile-card{
+  transition:background-color .35s ease,border-color .35s ease,box-shadow .35s ease,opacity .9s ease var(--d,0s),translate 1s var(--ease-out) var(--d,0s);
+}
+/* Buttons are small and sit on smooth gradients: skip the blur, save a GPU layer each */
+.btn{-webkit-backdrop-filter:none;backdrop-filter:none}
 .nav::before,.btn::before,.card::before,.profile-card::before,.theme-toggle::before{
   content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;
   background:
@@ -160,44 +185,95 @@ a{color:inherit}
 .card::before,.profile-card::before{--spec-r:300px}
 .nav:hover::before,.btn:hover::before,.card:hover::before,.profile-card:hover::before,.theme-toggle:hover::before{opacity:1}
 .card:hover,.profile-card:hover{background:var(--glass-hover-bg);box-shadow:var(--glass-inset),var(--glass-shadow-hover)}
+/* Spotlight border that follows the pointer */
+.card::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;z-index:-1;
+  background:radial-gradient(240px circle at var(--gx,50%) var(--gy,0%),var(--accent),transparent 70%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  mask-composite:exclude;
+  opacity:0;transition:opacity .35s ease;
+}
+.card:hover::after{opacity:.85}
 
-/* Ripple / light response */
 .ripple{
   position:absolute;z-index:-1;pointer-events:none;border-radius:50%;
   transform:translate(-50%,-50%) scale(0);
   background:radial-gradient(circle,var(--ripple),transparent 68%);
-  animation:ripple .7s cubic-bezier(.32,.72,0,1) forwards;
+  animation:ripple .7s var(--ease) forwards;
 }
 @keyframes ripple{0%{transform:translate(-50%,-50%) scale(0);opacity:1}100%{transform:translate(-50%,-50%) scale(1);opacity:0}}
 
+/* ---------- Liquid light orbs (positioned by the JS loop; GPU-composited, no repaints) ---------- */
+#liquid{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;contain:strict}
+.orb{position:absolute;left:0;top:0;border-radius:50%;will-change:transform;backface-visibility:hidden}
+.orb1{background:radial-gradient(circle,var(--orb1),transparent 68%)}
+.orb2{background:radial-gradient(circle,var(--orb2),transparent 68%)}
+.orb3{background:radial-gradient(circle,var(--orb3),transparent 68%)}
+.orb4{background:radial-gradient(circle,var(--orb4),transparent 68%)}
+
 /* ---------- Navigation (floating glass bar) ---------- */
 header.wrap{position:sticky;top:12px;z-index:50;margin-top:12px}
+.js header.wrap{animation:nav-in .9s var(--ease-out) .05s backwards}
+@keyframes nav-in{from{opacity:0;translate:0 -18px}}
 .nav{display:flex;justify-content:space-between;align-items:center;padding:8px 10px 8px 22px;gap:18px;border-radius:999px}
+.nav.is-scrolled{box-shadow:var(--glass-inset),var(--glass-shadow-hover)}
 .brand{font-weight:850;letter-spacing:.08em;text-decoration:none;transition:letter-spacing .25s ease}
 .brand:hover{letter-spacing:.14em}
-.navlinks{display:flex;gap:4px;flex-wrap:wrap}
-.navlinks a{color:var(--muted);text-decoration:none;font-size:.92rem;padding:8px 14px;border-radius:999px;transition:color .2s ease,background-color .25s ease}
-.navlinks a:hover{color:var(--text);background:var(--link-hover)}
+.brand .dot-accent{color:var(--accent)}
+.navlinks{position:relative;display:flex;gap:4px;flex-wrap:wrap}
+.navlinks a{position:relative;z-index:1;color:var(--muted);text-decoration:none;font-size:.92rem;padding:8px 14px;border-radius:999px;transition:color .2s ease}
+.navlinks a:hover,.navlinks a.is-active{color:var(--text)}
+/* Sliding highlight that glides between links */
+.nav-pill{position:absolute;z-index:0;left:0;top:0;width:0;height:0;border-radius:999px;background:var(--link-hover);box-shadow:inset 0 0 0 1px var(--line);pointer-events:none;opacity:0;translate:0 0;transition:translate .45s var(--ease),width .45s var(--ease),opacity .25s ease}
 
 /* ---------- Hero ---------- */
 .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:42px;align-items:center;padding:64px 0 82px;scroll-margin-top:90px}
-.eyebrow{color:var(--accent2);font-size:.78rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
-h1{font-weight:850;font-size:clamp(2.8rem,7vw,5.8rem);line-height:1;letter-spacing:-.06em;margin:18px 0 22px}
-.gradient{background:linear-gradient(110deg,var(--h1a) 15%,var(--h1b) 55%,var(--h1c));color:transparent;background-clip:text;-webkit-background-clip:text}
-.lead{color:var(--muted);max-width:570px;font-size:clamp(1rem,2vw,1.18rem)}
+.eyebrow{color:var(--accent2);font-size:.78rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;display:inline-flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:30px;height:1px;background:linear-gradient(90deg,transparent,var(--accent2))}
+h1{font-weight:850;font-size:clamp(2.8rem,7vw,5.8rem);line-height:1;letter-spacing:-.04em;margin:18px 0 22px}
+/* Each headline line sits in a mask and rises into view (transform only, no blur filters) */
+.line{display:block;overflow:hidden;padding:.04em .1em .14em;margin:-.04em -.1em -.14em}
+.line>span{display:inline-block;transform-origin:0 100%}
+.gradient{padding-right:.08em;background:linear-gradient(110deg,var(--h1a) 15%,var(--h1b) 55%,var(--h1c));color:transparent;background-clip:text;-webkit-background-clip:text;background-size:170% 100%;background-position:var(--px,40%) 0}
+@supports not ((-webkit-background-clip:text) or (background-clip:text)){.gradient{color:var(--text)}}
+.lead{color:var(--muted);max-width:570px;font-size:clamp(1rem,2vw,1.18rem);line-height:1.75;margin:0}
 .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
-.hero .eyebrow{animation:ui-rise .7s both}
-.hero h1{animation:ui-rise .8s .08s both}
-.hero .lead{animation:ui-rise .8s .16s both}
-.hero .actions{animation:ui-rise .8s .24s both}
-@keyframes ui-rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
-/* ---------- Glass buttons ---------- */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:999px;padding:12px 20px;text-decoration:none;font-weight:750;color:var(--text);cursor:pointer;user-select:none;touch-action:manipulation}
-.btn:hover{transform:translate(var(--tx,0px),calc(-2px + var(--ty,0px)));background:var(--glass-hover-bg);box-shadow:var(--glass-inset),var(--glass-shadow-hover)}
-.btn:active,.theme-toggle:active{transform:translateY(0) scale(.965);transition-duration:.12s;box-shadow:var(--glass-inset),0 4px 12px rgba(0,0,0,.14)}
+.js .line>span{animation:line-up 1.15s var(--ease-out) backwards;animation-delay:calc(.12s + var(--i,0) * .12s)}
+@keyframes line-up{from{translate:0 110%;rotate:4deg}}
+.js .hero .eyebrow,.js .hero .lead,.js .hero .status,.js .hero .actions,.js .hero .profile-card{animation:rise .95s var(--ease-out) backwards;animation-delay:calc(.05s + var(--i,0) * .1s)}
+@keyframes rise{from{opacity:0;translate:0 20px}}
+
+/* Status chip with a pure-CSS rotating word (zero JS) */
+.status{display:inline-flex;align-items:center;gap:10px;margin-top:22px;padding:8px 18px 8px 14px;border-radius:999px;font-size:.88rem;color:var(--muted);background:var(--link-hover);border:1px solid var(--line)}
+.dot{position:relative;width:8px;height:8px;border-radius:50%;background:var(--accent);flex:0 0 auto}
+.dot::after{content:"";position:absolute;inset:0;border-radius:50%;background:inherit;animation:ping 2.2s var(--ease-out) infinite}
+@keyframes ping{0%{transform:scale(1);opacity:.7}100%{transform:scale(3.4);opacity:0}}
+.swap{display:inline-block;height:1.5em;min-width:5.6em;overflow:hidden;vertical-align:bottom;color:var(--text);font-weight:700}
+.swap-track{display:flex;flex-direction:column;animation:swap 9s var(--ease) infinite}
+.swap-track b{display:block;height:1.5em;line-height:1.5em;font-weight:inherit}
+@keyframes swap{
+  0%,26%{translate:0 0}
+  33%,59%{translate:0 -1.5em}
+  66%,92%{translate:0 -3em}
+  100%{translate:0 -4.5em}
+}
+
+/* ---------- Buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:999px;padding:12px 20px;text-decoration:none;font-weight:750;letter-spacing:.01em;color:var(--text);cursor:pointer;user-select:none;touch-action:manipulation;font-family:inherit;font-size:1rem;line-height:1.65}
+.btn .ico{display:inline-block;transition:translate .3s var(--ease)}
 .btn.primary{background:var(--primary-bg);color:var(--primary-color);border-color:var(--primary-border);--ripple:rgba(255,255,255,.38)}
-.btn.primary:hover{background:var(--primary-bg);filter:brightness(1.08)}
+.btn.primary::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.34) 50%,transparent 70%);translate:-130% 0;transition:translate .9s var(--ease)}
+.btn:active,.theme-toggle:active{transform:scale(.965);transition-duration:.12s;box-shadow:var(--glass-inset),0 4px 12px rgba(0,0,0,.14)}
+@media (hover:hover) and (pointer:fine){
+  .btn:hover{transform:translateY(-2px);background:var(--glass-hover-bg);box-shadow:var(--glass-inset),var(--glass-shadow-hover)}
+  .btn.primary:hover{background:var(--primary-bg);filter:brightness(1.08)}
+  .btn.primary:hover::after{translate:130% 0}
+  .btn:hover .ico{translate:3px -3px}
+  .theme-toggle:hover{transform:translateY(-2px);background:var(--glass-hover-bg);box-shadow:var(--glass-inset),var(--glass-shadow-hover)}
+}
 
 /* ---------- Profile card ---------- */
 .profile-card{min-height:380px;border-radius:32px;padding:26px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
@@ -205,33 +281,59 @@ h1{font-weight:850;font-size:clamp(2.8rem,7vw,5.8rem);line-height:1;letter-spaci
 .avatar{width:158px;height:158px;border-radius:50%;border:2px solid var(--avatar-border);background:linear-gradient(135deg,#292344,#163b43);display:grid;place-items:center;overflow:visible;position:relative;box-shadow:0 0 0 9px var(--avatar-ring),0 10px 28px rgba(0,0,0,.18);transition:transform .35s ease,box-shadow .35s ease}
 .avatar img{width:100%;height:100%;object-fit:cover;display:block;border-radius:50%}
 .avatar .initials{font-size:2.7rem;font-weight:900;letter-spacing:-.08em;color:white}
+.avatar::before{
+  content:"";position:absolute;inset:-12px;border-radius:50%;pointer-events:none;
+  background:conic-gradient(from 0deg,transparent 0 52%,var(--accent) 78%,var(--accent2) 94%,transparent 100%);
+  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 1px));
+  mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 1px));
+  opacity:.9;animation:ring-spin 9s linear infinite;animation-play-state:paused;
+}
+@keyframes ring-spin{to{transform:rotate(360deg)}}
 .profile-card:hover .avatar{transform:translateY(-4px) scale(1.025)}
-.profile-name{margin:22px 0 2px;font-size:1.4rem;font-weight:800}
+.profile-card:hover .avatar::before{animation-play-state:running}
+.profile-name{margin:22px 0 2px;font-size:1.4rem;font-weight:800;letter-spacing:-.01em}
 .profile-role{color:var(--muted);font-size:.9rem}
 .photo-help{color:var(--muted);font-size:.76rem;margin-top:14px}
 
 /* ---------- Sections & cards ---------- */
-.section{padding:32px 0 62px;scroll-margin-top:90px}
+.section{padding:44px 0 76px;scroll-margin-top:90px}
 .section-head{margin-bottom:24px}
-.kicker{color:var(--accent);font-size:.75rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+.kicker{display:flex;align-items:center;gap:12px;color:var(--accent);font-size:.75rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+.kicker::after{content:"";width:38px;height:1px;background:linear-gradient(90deg,var(--accent),transparent);opacity:.7}
 h2{font-weight:800;font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.1;letter-spacing:-.04em;margin:10px 0 14px}
 .section-intro{color:var(--muted);max-width:650px;margin:0}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 .card{padding:24px;border-radius:var(--radius)}
-.card:hover{transform:translateY(-4px)}
-.card h3{margin:0 0 8px;font-size:1.1rem}
+.card h3{margin:0 0 8px;font-size:1.1rem;font-weight:750;letter-spacing:-.01em}
 .card p{color:var(--muted);margin:0}
-.social{display:flex;align-items:center;gap:15px}
+.icon{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;margin-bottom:16px;color:var(--accent);background:var(--link-hover);border:1px solid var(--line)}
+.icon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;transition:translate .4s var(--ease),rotate .4s var(--ease)}
+.card:hover .icon svg{translate:0 -2px;rotate:-8deg}
+
+.social{display:flex;align-items:center;gap:15px;text-decoration:none;color:inherit;cursor:pointer}
+.social-icon img{width:26px;height:26px;display:block}
 .social-icon{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(140deg,#e8cfa4,#b99a6a 45%,#6f63d6);color:white;font-weight:900;font-size:1.25rem;flex:0 0 auto;box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 6px 14px rgba(0,0,0,.18);transition:transform .3s ease}
 .social:hover .social-icon{transform:rotate(-8deg) scale(1.06)}
 .social-info{flex:1;min-width:0}
 .social-info strong{display:block}
 .social-info span{color:var(--muted);font-size:.92rem}
-.social .arrow{text-decoration:none;font-size:1.3rem;color:var(--accent2);padding:6px 8px}
+.social .arrow{display:grid;place-items:center;flex:0 0 auto;width:40px;height:40px;border-radius:50%;text-decoration:none;color:var(--accent2);transition:background-color .25s ease}
+.social .arrow svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;transition:scale .35s var(--ease)}
+.social .arrow:hover{background:var(--link-hover)}
+.social .arrow:hover svg{scale:1.12}
+.copy{display:grid;place-items:center;width:40px;height:40px;padding:0;flex:0 0 auto}
+.copy svg{grid-area:1/1;width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:opacity .25s ease,scale .35s var(--ease)}
+.copy .i-check{opacity:0;scale:.5;color:var(--accent)}
+.copy.done .i-copy{opacity:0;scale:.5}
+.copy.done .i-check{opacity:1;scale:1}
 .note{margin-top:18px;color:var(--muted);font-size:.87rem}
-.footer{border-top:1px solid var(--line);margin-top:28px;padding:28px 0 36px;color:var(--muted);font-size:.86rem;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.footer{margin-top:28px;padding:28px 0 36px;color:var(--muted);font-size:.86rem;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid transparent;border-image:linear-gradient(90deg,transparent,var(--line) 20%,var(--line) 80%,transparent) 1}
 .footer a{text-decoration:none;transition:color .2s ease}
 .footer a:hover{color:var(--text)}
+
+/* ---------- Toast ---------- */
+.toast{position:fixed;left:50%;bottom:max(22px,env(safe-area-inset-bottom));z-index:80;translate:-50% 24px;opacity:0;pointer-events:none;padding:10px 20px;border-radius:999px;font-size:.88rem;font-weight:650;background:var(--glass-bg);border:1px solid var(--glass-border);box-shadow:var(--glass-inset),var(--glass-shadow);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);transition:opacity .3s ease,translate .45s var(--ease)}
+.toast.show{opacity:1;translate:-50% 0}
 
 /* ---------- Floating theme control ---------- */
 .theme-toggle{
@@ -240,76 +342,31 @@ h2{font-weight:800;font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.1;letter-spa
   width:52px;height:52px;padding:0;border-radius:50%;color:var(--text);cursor:pointer;
   display:grid;place-items:center;
 }
-.theme-toggle:hover{transform:translateY(-2px);background:var(--glass-hover-bg);box-shadow:var(--glass-inset),var(--glass-shadow-hover)}
-.theme-toggle svg{grid-area:1/1;width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:opacity .35s ease,transform .5s cubic-bezier(.32,.72,0,1)}
+.theme-toggle svg{grid-area:1/1;width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:opacity .35s ease,transform .5s var(--ease)}
 .theme-toggle .icon-moon{opacity:0;transform:rotate(-70deg) scale(.6)}
 :root[data-theme="light"] .theme-toggle .icon-sun{opacity:0;transform:rotate(70deg) scale(.6)}
 :root[data-theme="light"] .theme-toggle .icon-moon{opacity:1;transform:none}
 
-/* ---------- Scroll reveal ---------- */
-.reveal-ready .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.32,.72,0,1)}
-.reveal-ready .reveal.is-visible{opacity:1;transform:translateY(0)}
-.reveal-ready .card.reveal.is-visible,.reveal-ready .profile-card.reveal.is-visible{
-  transition:opacity .7s ease,transform .35s cubic-bezier(.32,.72,0,1),background-color .35s ease,border-color .35s ease,box-shadow .35s ease;
-}
-.reveal-ready .card.reveal.is-visible:hover{transform:translateY(-4px)}
+/* ---------- Scroll reveal (opacity + translate only; hidden state only exists when JS runs) ---------- */
+.js .reveal{opacity:0;translate:0 26px}
+.js .reveal.in{opacity:1;translate:0 0}
+.js .reveal:not(.card){transition:opacity .9s ease var(--d,0s),translate 1s var(--ease-out) var(--d,0s)}
+/* Split headline words slide up out of a mask */
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .05em .14em;margin:0 -.05em -.14em}
+.w>span{display:inline-block}
+.js .reveal .w>span{translate:0 108%;transition:translate .95s var(--ease-out);transition-delay:calc(var(--wi,0) * 55ms + var(--d,0s))}
+.js .reveal.in .w>span{translate:0 0}
 
-/* ---------- Smooth theme switching ---------- */
+/* ---------- Theme switch: circular reveal via View Transitions (falls back to a colour fade) ---------- */
+::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
+::view-transition-old(root){z-index:1}
+::view-transition-new(root){z-index:2}
+html.vt-run *,html.vt-run *::before,html.vt-run *::after{transition:none !important}
 html.theme-anim *,html.theme-anim *::before,html.theme-anim *::after{
   transition:background-color .5s ease,border-color .5s ease,color .5s ease,box-shadow .5s ease,fill .5s ease,stroke .5s ease,opacity .35s ease !important;
 }
 
-/* ---------- Responsive / touch ---------- */
-@media (max-width:760px){
-  header.wrap{top:8px;margin-top:8px}
-  .nav{flex-direction:row;align-items:center;gap:8px;padding:5px 6px 5px 14px;border-radius:999px;-webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%)}
-  .brand{font-size:.95rem;flex:0 0 auto}
-  .navlinks{flex:1 1 auto;min-width:0;flex-wrap:nowrap;justify-content:flex-end;gap:0;overflow-x:auto;scrollbar-width:none}
-  .navlinks::-webkit-scrollbar{display:none}
-  .navlinks a{font-size:.76rem;padding:7px 8px;white-space:nowrap}
-  .hero,.section{scroll-margin-top:64px}
-  .hero{grid-template-columns:1fr;gap:28px;padding:28px 0 58px}
-  .profile-card{min-height:320px}
-  .grid{grid-template-columns:1fr}
-  .wrap{width:min(var(--max),calc(100% - 28px))}
-  .theme-toggle{width:48px;height:48px}
-}
-@media (pointer:coarse),(max-width:760px){
-  body::before{display:none}
-  .btn:hover,.card:hover,.profile-card:hover,.theme-toggle:hover,.reveal-ready .card.reveal.is-visible:hover{transform:none}
-  .btn:active,.theme-toggle:active{transform:scale(.96)}
-  .btn:active::before,.card:active::before,.theme-toggle:active::before{opacity:1}
-}
-
-/* ---------- Aesthetic finishing touches ---------- */
-html{scrollbar-width:thin;scrollbar-color:rgba(160,160,180,.35) transparent}
-::selection{background:rgba(227,199,155,.28);color:inherit}
-:root[data-theme="light"] ::selection{background:rgba(122,90,42,.22)}
-.eyebrow{display:inline-flex;align-items:center;gap:12px}
-.eyebrow::before{content:"";width:30px;height:1px;background:linear-gradient(90deg,transparent,var(--accent2))}
-.kicker{display:flex;align-items:center;gap:12px}
-.kicker::after{content:"";width:38px;height:1px;background:linear-gradient(90deg,var(--accent),transparent);opacity:.7}
-.lead{line-height:1.75}
-.btn{letter-spacing:.01em}
-.navlinks a.is-active{color:var(--text);background:var(--link-hover)}
-.card h3{font-weight:750;letter-spacing:-.01em}
-.footer{border-top:1px solid transparent;border-image:linear-gradient(90deg,transparent,var(--line) 20%,var(--line) 80%,transparent) 1}
-.profile-name{letter-spacing:-.01em}
-@media (min-width:761px){
-  .section{padding:44px 0 76px}
-}
-
-/* ---------- Creative touches ---------- */
-/* Living liquid-light canvas that reacts to pointer / touch (drawn by JS) */
-#liquid{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-.orb{position:absolute;left:0;top:0;border-radius:50%;will-change:transform;backface-visibility:hidden}
-.orb1{background:radial-gradient(circle,var(--orb1),transparent 68%)}
-.orb2{background:radial-gradient(circle,var(--orb2),transparent 68%)}
-.orb3{background:radial-gradient(circle,var(--orb3),transparent 68%)}
-.orb4{background:radial-gradient(circle,var(--orb4),transparent 68%)}
-:root{--orb1:rgba(106,88,230,.30);--orb2:rgba(227,199,155,.18);--orb3:rgba(70,160,220,.20);--orb4:rgba(130,100,255,.16)}
-:root[data-theme="light"]{--orb1:rgba(150,122,255,.26);--orb2:rgba(236,190,120,.34);--orb3:rgba(110,180,235,.26);--orb4:rgba(255,160,150,.22)}
-/* Glass lens that trails the cursor (desktop only, created by JS) */
+/* ---------- Glass lens that trails the cursor (created by JS, desktop only) ---------- */
 .lens{
   position:fixed;left:0;top:0;width:34px;height:34px;border-radius:50%;pointer-events:none;z-index:70;opacity:0;
   background:rgba(255,255,255,.06);
@@ -321,32 +378,31 @@ html{scrollbar-width:thin;scrollbar-color:rgba(160,160,180,.35) transparent}
 }
 .lens.is-on{opacity:1}
 :root[data-theme="light"] .lens{background:rgba(255,255,255,.26)}
-/* Headline pulls into focus on load */
-.hero h1{animation:h1-focus 1.4s .1s cubic-bezier(.32,.72,0,1) both}
-@keyframes h1-focus{
-  from{opacity:0;filter:blur(18px);transform:translateY(20px) scale(.97)}
-  to{opacity:1;filter:blur(0);transform:none}
-}
-/* Headline light that follows the pointer */
-.gradient{background-size:170% 100%;background-position:var(--px,40%) 0}
-/* Orbiting light ring around the avatar */
-.avatar::before{
-  content:"";position:absolute;inset:-12px;border-radius:50%;pointer-events:none;
-  background:conic-gradient(from 0deg,transparent 0 52%,var(--accent) 78%,var(--accent2) 94%,transparent 100%);
-  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 1px));
-  mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 1px));
-  opacity:.9;animation:ring-spin 9s linear infinite;animation-play-state:paused;
-}
-@keyframes ring-spin{to{transform:rotate(360deg)}}
-.profile-card:hover .avatar::before{animation-play-state:running}
 
-/* ---------- Lighter blur on phones (smoother scrolling, less battery) ---------- */
+/* ---------- Finishing touches ---------- */
+html{scrollbar-width:thin;scrollbar-color:rgba(160,160,180,.35) transparent}
+::selection{background:rgba(227,199,155,.28);color:inherit}
+:root[data-theme="light"] ::selection{background:rgba(122,90,42,.22)}
+
+/* ---------- Responsive / touch ---------- */
 @media (max-width:760px){
-  .card,.profile-card{-webkit-backdrop-filter:blur(12px) saturate(160%);backdrop-filter:blur(12px) saturate(160%)}
-  .theme-toggle{-webkit-backdrop-filter:blur(12px) saturate(160%);backdrop-filter:blur(12px) saturate(160%)}
+  header.wrap{top:8px;margin-top:8px}
+  .nav{gap:8px;padding:5px 6px 5px 14px;-webkit-backdrop-filter:blur(12px) saturate(160%);backdrop-filter:blur(12px) saturate(160%)}
+  .brand{font-size:.95rem;flex:0 0 auto}
+  .navlinks{flex:1 1 auto;min-width:0;flex-wrap:nowrap;justify-content:flex-start;gap:0;overflow-x:auto;scrollbar-width:none}
+  .navlinks::-webkit-scrollbar{display:none}
+  .navlinks a{font-size:.76rem;padding:7px 8px;white-space:nowrap;flex:0 0 auto}
+  .hero,.section{scroll-margin-top:64px}
+  .hero{grid-template-columns:1fr;gap:28px;padding:28px 0 58px}
+  .profile-card{min-height:320px}
+  .grid{grid-template-columns:1fr}
+  .wrap{width:min(var(--max),calc(100% - 28px))}
+  .card,.profile-card,.theme-toggle,.toast{-webkit-backdrop-filter:blur(12px) saturate(160%);backdrop-filter:blur(12px) saturate(160%)}
+  .theme-toggle{width:48px;height:48px}
   .actions{gap:10px}
-  .actions .btn{flex:1 1 calc(50% - 5px);padding:13px 16px}
+  .actions .btn{flex:1 1 calc(50% - 5px);padding:13px 12px;font-size:.94rem;white-space:nowrap}
   .actions .btn.primary{flex-basis:100%}
+  .section{padding:32px 0 62px}
   .footer{flex-direction:column;gap:8px}
 }
 
@@ -354,73 +410,93 @@ html{scrollbar-width:thin;scrollbar-color:rgba(160,160,180,.35) transparent}
 @media (prefers-reduced-transparency:reduce),(prefers-contrast:more){
   :root{--glass-bg:rgba(20,22,38,.94);--glass-hover-bg:rgba(28,31,52,.97);--glass-border:rgba(255,255,255,.28)}
   :root[data-theme="light"]{--glass-bg:rgba(255,255,255,.96);--glass-hover-bg:rgba(255,255,255,.99);--glass-border:rgba(30,24,16,.28)}
-  .nav,.btn,.card,.profile-card,.theme-toggle{-webkit-backdrop-filter:none;backdrop-filter:none}
+  .nav,.btn,.card,.profile-card,.theme-toggle,.toast{-webkit-backdrop-filter:none;backdrop-filter:none}
+  .grain{display:none}
 }
 
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
-  .reveal-ready .reveal{opacity:1;transform:none}
+  *,*::before,*::after{animation-duration:.01ms !important;animation-delay:0s !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;transition-delay:0s !important;scroll-behavior:auto !important}
+  .js .reveal{opacity:1;translate:none}
+  .js .reveal .w>span{translate:none}
   .ripple{display:none}
+  .swap-track{animation:none}
 }
 </style>
 </head>
 <body>
 
+<a class="skip" href="#main">Skip to content</a>
+<div class="progress" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
 <header class="wrap">
 <nav class="nav" aria-label="Main navigation">
-<a class="brand" href="#home">AR<span style="color:var(--accent)">.</span></a>
+<a class="brand" href="#home">AR<span class="dot-accent">.</span></a>
 <div class="navlinks">
+<span class="nav-pill" aria-hidden="true"></span>
 <a href="#about">About</a><a href="#interests">Interests</a><a href="#social">Social</a>
 <a href="https://arghya-zeo.github.io/project/" target="_blank" rel="noopener noreferrer">School Projects ↗</a>
 </div>
 </nav>
 </header>
-<main>
+
+<main id="main">
 <section class="hero wrap" id="home">
 <div>
-<div class="eyebrow">Personal profile · Online presence</div>
-<h1><span class="gradient">Arghya<br>Sarkar.</span></h1>
-<p class="lead">A simple space for my identity, interests, and online profile. Welcome!</p>
-<div class="actions">
-<a class="btn primary" href="https://www.instagram.com/arghya__zeo/" target="_blank" rel="noopener noreferrer">Visit Instagram <span aria-hidden="true">↗</span></a>
+<div class="eyebrow" style="--i:0">Personal profile · Online presence</div>
+<h1><span class="line" style="--i:0"><span class="gradient">Arghya</span></span> <span class="line" style="--i:1"><span class="gradient">Sarkar.</span></span></h1>
+<p class="lead" style="--i:4">A simple space for my identity, interests, and online profile. Welcome!</p>
+<div class="status" style="--i:5">
+<span class="dot" aria-hidden="true"></span>
+<span class="sr-only">Always learning, creating and exploring.</span>
+<span aria-hidden="true">Always</span>
+<span class="swap" aria-hidden="true"><span class="swap-track"><b>learning</b><b>creating</b><b>exploring</b><b>learning</b></span></span>
+</div>
+<div class="actions" style="--i:6">
+<a class="btn primary" href="https://www.instagram.com/arghya__zeo/" target="_blank" rel="noopener noreferrer">Visit Instagram <span class="ico" aria-hidden="true">↗</span></a>
 <a class="btn secondary" href="#about">Get to know me</a>
-<a class="btn secondary" href="https://arghya-zeo.github.io/project/" target="_blank" rel="noopener noreferrer">School Projects ↗</a>
+<a class="btn secondary" href="https://arghya-zeo.github.io/project/" target="_blank" rel="noopener noreferrer">School Projects <span class="ico" aria-hidden="true">↗</span></a>
 </div>
 </div>
-<aside class="profile-card" aria-label="Profile card">
-<div class="avatar"><img src="profile.jpg" alt="Portrait of Arghya Sarkar" width="158" height="158" decoding="async" fetchpriority="high" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="initials" style="display:none">AS</span></div>
+<aside class="profile-card" data-tilt="6" data-lift="0" style="--i:3" aria-label="Profile card">
+<div class="avatar" data-depth><img src="profile.jpg" alt="Portrait of Arghya Sarkar" width="158" height="158" decoding="async" fetchpriority="high" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="initials" style="display:none">AS</span></div>
 <div class="profile-name">Arghya Sarkar</div><div class="profile-role">Personal Creator</div><div class="photo-help">Arghya Sarkar | Arghya Zeo</div>
 </aside>
 </section>
+
 <section class="section wrap" id="about">
-<div class="section-head"><div class="kicker">01 / About</div><h2>A little about me.</h2>
+<div class="section-head reveal"><div class="kicker">01 / About</div><h2 class="split">A little about me.</h2>
 <p class="section-intro">I’m Arghya Sarkar, also known online as Arghya Zeo. This is my personal website, created to share a simple introduction and links to my public online profile. I want this page to be a clear and genuine place to find me online.</p></div>
 </section>
+
 <section class="section wrap" id="interests">
-<div class="section-head"><div class="kicker">02 / Interests</div><h2>Things I’m exploring.</h2>
+<div class="section-head reveal"><div class="kicker">02 / Interests</div><h2 class="split">Things I’m exploring.</h2>
 <p class="section-intro">This section can grow over time as I share more about my real interests, projects, and creative work.</p></div>
 <div class="grid">
-<article class="card"><h3>Learning</h3><p>Exploring new ideas and learning useful things, one step at a time.</p></article>
-<article class="card"><h3>Online creativity</h3><p>Building a personal online presence and sharing things that reflect my interests.</p></article>
+<article class="card reveal" data-tilt="4" data-lift="-4"><div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2 5.5C4.5 4 8 4 12 6c4-2 7.5-2 10-.5V19c-2.5-1.5-6-1.5-10 .5-4-2-7.5-2-10-.5z"/><path d="M12 6v13.5"/></svg></div><h3>Learning</h3><p>Exploring new ideas and learning useful things, one step at a time.</p></article>
+<article class="card reveal" data-tilt="4" data-lift="-4"><div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 4.7L18.5 9.5 13.8 11.3 12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2 2.2.8-2.2.8L19 21l-.8-2.2-2.2-.8 2.2-.8z"/></svg></div><h3>Online creativity</h3><p>Building a personal online presence and sharing things that reflect my interests.</p></article>
 </div>
-<p class="note">These are general introductory descriptions.</p>
+<p class="note reveal">These are general introductory descriptions.</p>
 </section>
+
 <section class="section wrap" id="social">
-<div class="section-head"><div class="kicker">03 / Find me online</div><h2>My social profile.</h2>
+<div class="section-head reveal"><div class="kicker">03 / Find me online</div><h2 class="split">My social profile.</h2>
 <p class="section-intro">You can visit my Instagram profile using the link below.</p></div>
-<div class="card social">
-<div class="social-icon" aria-hidden="true">◎</div>
+<a class="card social reveal" data-tilt="3" data-lift="-4" href="https://www.instagram.com/arghya__zeo/" target="_blank" rel="noopener noreferrer" aria-label="Open Instagram profile @arghya__zeo">
+<div class="social-icon" aria-hidden="true"><img src="instagram.svg" alt="" width="26" height="26" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span style="display:none">◎</span></div>
 <div class="social-info"><strong>Instagram</strong><span>@arghya__zeo</span></div>
-<a class="arrow" href="https://www.instagram.com/arghya__zeo/" target="_blank" rel="noopener noreferrer" aria-label="Open Instagram profile">↗</a>
-</div>
-<p class="note">For privacy, this page does not display a home address, phone number, school routine, or other sensitive personal details.</p>
+</a>
+<p class="note reveal">For privacy, this page does not display a home address, phone number, school routine, or other sensitive personal details.</p>
 </section>
 </main>
-<footer class="wrap footer">
-<span>© <span id="year"></span> Arghya Sarkar</span>
-<span><a href="https://arghya-zeo.github.io/project/" target="_blank" rel="noopener noreferrer">School Projects ↗</a> · Personal website · Made with care</span>
+
+<footer class="wrap footer reveal">
+<span>© <span id="year">2026</span> Arghya Sarkar</span>
+<span><a href="https://arghya-zeo.github.io/project/" target="_blank" rel="noopener noreferrer">School Projects ↗</a> · <a href="#home">Back to top ↑</a> · Personal website · Made with care</span>
 </footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light theme" title="Switch theme">
 <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4"/></svg>
@@ -429,250 +505,434 @@ html{scrollbar-width:thin;scrollbar-color:rgba(160,160,180,.35) transparent}
 
 <script>
 (() => {
+  "use strict";
   const root = document.documentElement;
-  const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const reduceMotion = motionQuery.matches;
-  const finePointer = window.matchMedia("(pointer: fine)").matches;
+  const $ = (s, c = document) => c.querySelector(s);
+  const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
+  // A decorative module must never be able to break the rest of the page.
+  const safe = (fn) => { try { fn(); } catch (err) { /* ignore */ } };
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const live = !reduceMotion;
   const GLASS = ".nav, .btn, .card, .profile-card, .theme-toggle";
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 
-  /* ---------- Theme toggle ---------- */
-  const toggle = document.getElementById("theme-toggle");
-  const metaTheme = document.querySelector('meta[name="theme-color"]');
-  const themeColors = { dark: "#06070c", light: "#f4f1ec" };
-  let themeTimer = 0;
+  /* ===== One shared rAF loop. It sleeps completely when nothing is moving. ===== */
+  const loop = (() => {
+    const fns = new Set();
+    let id = 0, last = 0;
+    const run = (t) => {
+      id = 0;
+      const dt = last ? Math.min(t - last, 50) : 16.7;
+      last = t;
+      fns.forEach((fn) => { if (fn(t, dt) === false) fns.delete(fn); });
+      if (fns.size) id = requestAnimationFrame(run); else last = 0;
+    };
+    return { add(fn) { fns.add(fn); if (!id) id = requestAnimationFrame(run); } };
+  })();
+  // Frame-rate independent smoothing: f = share of the gap closed per 60fps frame.
+  const damp = (cur, tar, f, dt) => cur + (tar - cur) * (1 - Math.pow(1 - f, dt / 16.667));
 
-  const syncTheme = () => {
-    const theme = root.getAttribute("data-theme") === "light" ? "light" : "dark";
-    if (toggle) {
-      toggle.setAttribute("aria-label", theme === "light" ? "Switch to dark theme" : "Switch to light theme");
-      toggle.setAttribute("title", theme === "light" ? "Switch to dark theme" : "Switch to light theme");
-    }
-    if (metaTheme) metaTheme.setAttribute("content", themeColors[theme]);
-  };
-  const setTheme = (theme, save) => {
-    if (!reduceMotion) {
-      root.classList.add("theme-anim");
-      clearTimeout(themeTimer);
-      themeTimer = setTimeout(() => root.classList.remove("theme-anim"), 650);
-    }
-    root.setAttribute("data-theme", theme);
-    if (save) { try { localStorage.setItem("theme", theme); } catch (e) {} }
-    syncTheme();
-  };
-  syncTheme();
-  if (toggle) {
-    toggle.addEventListener("click", () => {
-      setTheme(root.getAttribute("data-theme") === "light" ? "dark" : "light", true);
-    });
-  }
-  // Follow system changes only if the visitor hasn't chosen manually.
-  const schemeQuery = window.matchMedia("(prefers-color-scheme: light)");
-  const onScheme = (e) => {
-    let saved = null;
-    try { saved = localStorage.getItem("theme"); } catch (err) {}
-    if (saved !== "light" && saved !== "dark") setTheme(e.matches ? "light" : "dark", false);
-  };
-  if (schemeQuery.addEventListener) schemeQuery.addEventListener("change", onScheme);
-
-  /* ---------- Glass highlight follows the pointer ---------- */
-  const moveHighlight = (el, event) => {
-    const rect = el.getBoundingClientRect();
-    el.style.setProperty("--gx", (event.clientX - rect.left) + "px");
-    el.style.setProperty("--gy", (event.clientY - rect.top) + "px");
-  };
-  document.querySelectorAll(GLASS).forEach((el) => {
-    if (finePointer && !reduceMotion) {
-      el.addEventListener("pointermove", (e) => moveHighlight(el, e), { passive: true });
-    }
-    el.addEventListener("pointerdown", (e) => moveHighlight(el, e), { passive: true });
-  });
-
-  /* ---------- Ripple / light response on press ---------- */
-  document.querySelectorAll(".btn, .theme-toggle").forEach((el) => {
-    el.addEventListener("pointerdown", (event) => {
-      if (reduceMotion) return;
-      const rect = el.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height) * 2.4;
-      const ripple = document.createElement("span");
-      ripple.className = "ripple";
-      ripple.style.width = ripple.style.height = size + "px";
-      ripple.style.left = (event.clientX - rect.left) + "px";
-      ripple.style.top = (event.clientY - rect.top) + "px";
-      el.appendChild(ripple);
-      ripple.addEventListener("animationend", () => ripple.remove());
-    }, { passive: true });
-  });
-
-  /* ---------- Headline light follows the pointer (scoped to the headline only) ---------- */
-  const headline = document.querySelector(".hero h1 .gradient");
-  if (headline && !reduceMotion && finePointer) {
-    let hraf = 0, hx = 40;
-    window.addEventListener("pointermove", (event) => {
-      hx = event.clientX / window.innerWidth * 100;
-      if (hraf) return;
-      hraf = requestAnimationFrame(() => {
-        headline.style.setProperty("--px", hx.toFixed(1) + "%");
-        hraf = 0;
+  /* ===== 1. Reveal: split headings into words, stagger cards, reveal on scroll ===== */
+  safe(() => {
+    $$(".split").forEach((h) => {
+      const words = h.textContent.trim().split(/\s+/);
+      h.textContent = "";
+      words.forEach((word, i) => {
+        const w = document.createElement("span");
+        w.className = "w";
+        w.style.setProperty("--wi", i);
+        const s = document.createElement("span");
+        s.textContent = word;
+        w.appendChild(s);
+        h.appendChild(w);
+        if (i < words.length - 1) h.appendChild(document.createTextNode(" "));
       });
-    }, { passive: true });
-  }
+    });
+    $$(".grid").forEach((g) => $$(".reveal", g).forEach((el, i) => el.style.setProperty("--d", (i * 0.1).toFixed(2) + "s")));
+    const items = $$(".reveal");
+    const show = (el) => el.classList.add("in");
+    if (reduceMotion || !("IntersectionObserver" in window)) { items.forEach(show); return; }
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach((e) => { if (e.isIntersecting) { show(e.target); obs.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+    items.forEach((el) => io.observe(el));
+  });
 
-  /* ---------- Reveal existing sections/cards as they enter the viewport ---------- */
-  const revealTargets = document.querySelectorAll("main > section, .section-head, .card, .profile-card, .footer");
-  if ("IntersectionObserver" in window && !reduceMotion) {
-    root.classList.add("reveal-ready");
-    revealTargets.forEach((el) => el.classList.add("reveal"));
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          obs.unobserve(entry.target);
+  /* ===== 2. Theme toggle with a circular View-Transition reveal ===== */
+  safe(() => {
+    const toggle = $("#theme-toggle");
+    const metaTheme = $('meta[name="theme-color"]');
+    const colors = { dark: "#06070c", light: "#f4f1ec" };
+    let timer = 0;
+    const current = () => (root.getAttribute("data-theme") === "light" ? "light" : "dark");
+    const sync = () => {
+      const t = current();
+      const label = t === "light" ? "Switch to dark theme" : "Switch to light theme";
+      toggle.setAttribute("aria-label", label);
+      toggle.setAttribute("title", label);
+      if (metaTheme) metaTheme.setAttribute("content", colors[t]);
+    };
+    const setTheme = (theme, save, animated) => {
+      const commit = () => {
+        root.setAttribute("data-theme", theme);
+        if (save) { try { localStorage.setItem("theme", theme); } catch (e) {} }
+        sync();
+      };
+      if (live && animated && typeof document.startViewTransition === "function") {
+        const r = toggle.getBoundingClientRect();
+        const x = r.left + r.width / 2, y = r.top + r.height / 2;
+        const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+        root.classList.add("vt-run");
+        const vt = document.startViewTransition(commit);
+        vt.ready.then(() => {
+          root.animate(
+            { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`] },
+            { duration: 760, easing: "cubic-bezier(.32,.72,0,1)", pseudoElement: "::view-transition-new(root)" }
+          );
+        }).catch(() => {});
+        vt.finished.finally(() => root.classList.remove("vt-run")).catch(() => {});
+        return;
+      }
+      if (live) {
+        root.classList.add("theme-anim");
+        clearTimeout(timer);
+        timer = setTimeout(() => root.classList.remove("theme-anim"), 650);
+      }
+      commit();
+    };
+    sync();
+    toggle.addEventListener("click", () => setTheme(current() === "light" ? "dark" : "light", true, true));
+    const scheme = matchMedia("(prefers-color-scheme: light)");
+    if (scheme.addEventListener) {
+      scheme.addEventListener("change", (e) => {
+        let saved = null;
+        try { saved = localStorage.getItem("theme"); } catch (err) {}
+        if (saved !== "light" && saved !== "dark") setTheme(e.matches ? "light" : "dark", false, false);
+      });
+    }
+  });
+
+  /* ===== 3. Press ripple ===== */
+  safe(() => {
+    if (!live) return;
+    $$(".btn, .theme-toggle").forEach((el) => {
+      el.addEventListener("pointerdown", (event) => {
+        const rect = el.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height) * 2.4;
+        const ripple = document.createElement("span");
+        ripple.className = "ripple";
+        ripple.style.width = ripple.style.height = size + "px";
+        ripple.style.left = (event.clientX - rect.left) + "px";
+        ripple.style.top = (event.clientY - rect.top) + "px";
+        el.appendChild(ripple);
+        ripple.addEventListener("animationend", () => ripple.remove());
+      }, { passive: true });
+    });
+  });
+
+  /* ===== 4. Nav: sliding pill + scroll-spy ===== */
+  let navApi = { setActive() {}, refresh() {} };
+  safe(() => {
+    const strip = $(".navlinks");
+    const pill = $(".nav-pill");
+    const links = $$(".navlinks a");
+    let activeA = null;
+    const place = (a) => {
+      if (!a) { pill.style.opacity = "0"; return; }
+      const first = pill.style.opacity !== "1";
+      if (first) pill.style.transition = "none";
+      pill.style.width = a.offsetWidth + "px";
+      pill.style.height = a.offsetHeight + "px";
+      pill.style.translate = a.offsetLeft + "px " + a.offsetTop + "px";
+      if (first) { void pill.offsetWidth; pill.style.transition = ""; }
+      pill.style.opacity = "1";
+    };
+    links.forEach((a) => {
+      a.addEventListener("pointerenter", () => place(a));
+      a.addEventListener("focus", () => place(a));
+      a.addEventListener("blur", () => place(activeA));
+    });
+    strip.addEventListener("pointerleave", () => place(activeA));
+    navApi = {
+      setActive(id) {
+        activeA = null;
+        links.forEach((a) => {
+          const on = a.getAttribute("href") === "#" + id;
+          a.classList.toggle("is-active", on);
+          if (on) { a.setAttribute("aria-current", "true"); activeA = a; } else a.removeAttribute("aria-current");
+        });
+        place(activeA);
+        if (activeA && strip.scrollWidth > strip.clientWidth) {
+          strip.scrollTo({ left: activeA.offsetLeft - (strip.clientWidth - activeA.offsetWidth) / 2, behavior: live ? "smooth" : "auto" });
         }
-      });
-    }, { threshold: 0.12, rootMargin: "0px 0px -35px 0px" });
-    revealTargets.forEach((el) => observer.observe(el));
-  }
+      },
+      refresh() { place(activeA); }
+    };
+  });
 
-  /* ---------- Gentle tilt for the profile card (desktop only) ---------- */
-  if (!reduceMotion && finePointer) {
-    const profile = document.querySelector(".profile-card");
-    if (profile) {
-      profile.addEventListener("pointermove", (event) => {
-        const rect = profile.getBoundingClientRect();
-        const x = (event.clientX - rect.left) / rect.width - 0.5;
-        const y = (event.clientY - rect.top) / rect.height - 0.5;
-        profile.style.transform = `perspective(900px) rotateY(${x * 5}deg) rotateX(${-y * 5}deg)`;
-      }, { passive: true });
-      profile.addEventListener("pointerleave", () => { profile.style.transform = ""; });
-    }
-  }
-
-  /* ---------- Magnetic buttons (desktop only) ---------- */
-  if (!reduceMotion && finePointer) {
-    document.querySelectorAll(".btn").forEach((btn) => {
-      btn.addEventListener("pointermove", (event) => {
-        const rect = btn.getBoundingClientRect();
-        const x = (event.clientX - rect.left) / rect.width - 0.5;
-        const y = (event.clientY - rect.top) / rect.height - 0.5;
-        btn.style.setProperty("--tx", (x * 8).toFixed(1) + "px");
-        btn.style.setProperty("--ty", (y * 6).toFixed(1) + "px");
-      }, { passive: true });
-      btn.addEventListener("pointerleave", () => {
-        btn.style.removeProperty("--tx");
-        btn.style.removeProperty("--ty");
-      });
+  /* ===== 5. Copy Instagram handle ===== */
+  safe(() => {
+    const btn = $(".copy");
+    const toast = $("#toast");
+    if (!btn || !toast) return;
+    let toastTimer = 0, doneTimer = 0;
+    const say = (msg) => {
+      toast.textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 1900);
+    };
+    const copyText = async (text) => {
+      try { await navigator.clipboard.writeText(text); return true; }
+      catch (e) {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.setAttribute("readonly", "");
+        ta.style.cssText = "position:fixed;top:0;left:0;opacity:0";
+        document.body.appendChild(ta);
+        ta.select();
+        let ok = false;
+        try { ok = document.execCommand("copy"); } catch (err) {}
+        ta.remove();
+        return ok;
+      }
+    };
+    btn.addEventListener("click", async () => {
+      const ok = await copyText(btn.dataset.copy || "");
+      say(ok ? "Handle copied" : "Couldn’t copy. Select it manually.");
+      if (ok) {
+        btn.classList.add("done");
+        clearTimeout(doneTimer);
+        doneTimer = setTimeout(() => btn.classList.remove("done"), 1600);
+      }
     });
-  }
+  });
 
-  /* ---------- Highlight the nav link of the section in view ---------- */
-  const navAnchors = document.querySelectorAll('.navlinks a[href^="#"]');
-  if ("IntersectionObserver" in window && navAnchors.length) {
-    const spy = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        navAnchors.forEach((a) => a.classList.toggle("is-active", a.getAttribute("href") === "#" + entry.target.id));
-      });
-    }, { rootMargin: "-40% 0px -55% 0px" });
-    ["home", "about", "interests", "social"].forEach((id) => {
-      const section = document.getElementById(id);
-      if (section) spy.observe(section);
-    });
-  }
+  /* ===== 7. The engine: orbs, spotlight, tilt, magnetic buttons, lens, headline light, scroll state ===== */
+  safe(() => {
+    let w = innerWidth, h = innerHeight, sy = -1, epoch = 0, lastGlass = null, navScrolled = false, heroVisible = true, spyId = "";
+    const ptr = { x: 0, y: 0, on: false, moved: false, el: null, type: "mouse" };
+    const wake = () => loop.add(frame);
 
-  /* ---------- Liquid light: GPU-composited orbs that ease toward the pointer, then fully rest ---------- */
-  (() => {
-    const wrap = document.createElement("div");
-    wrap.id = "liquid";
-    wrap.setAttribute("aria-hidden", "true");
+    // Cached bounding boxes: invalidated on scroll / resize / hover change, so we never read layout per pointer event
+    // and a tilting card can't feed its own rotation back into the maths.
+    const rectOf = (el) => {
+      if (el._ep !== epoch) { el._r = el.getBoundingClientRect(); el._ep = epoch; }
+      return el._r;
+    };
+
+    /* --- orbs --- */
     const homes = [[.16, .20], [.84, .28], [.70, .84], [.20, .78]];
     const pull = [.18, .10, .14, -.06];          // + leans toward the pointer, - leans away
+    const depth = [.05, .09, .03, .07];          // scroll parallax
+    const stage = document.createElement("div");
+    stage.id = "liquid";
+    stage.setAttribute("aria-hidden", "true");
     const orbs = homes.map((hm, i) => {
       const el = document.createElement("div");
       el.className = "orb orb" + (i + 1);
-      wrap.appendChild(el);
-      return { el, i, x: 0, y: 0, tx: 0, ty: 0, size: 0 };
+      stage.appendChild(el);
+      return { el, i, x: 0, y: 0, size: 0 };
     });
-    document.body.insertBefore(wrap, document.body.firstChild);
-
-    let w = window.innerWidth, h = window.innerHeight, mx = null, my = null, raf = 0, started = false;
-
-    const setTarget = (o) => {
-      let x = homes[o.i][0] * w, y = homes[o.i][1] * h;
-      if (mx !== null) { x += (mx - x) * pull[o.i]; y += (my - y) * pull[o.i]; }
-      o.tx = x; o.ty = y;
-    };
-    const place = (o) => {
-      o.el.style.transform = `translate3d(${(o.x - o.size / 2).toFixed(1)}px,${(o.y - o.size / 2).toFixed(1)}px,0)`;
-    };
-    const step = () => {
-      let moving = false;
-      orbs.forEach((o) => {
-        setTarget(o);
-        const dx = o.tx - o.x, dy = o.ty - o.y;
-        if (Math.abs(dx) > .2 || Math.abs(dy) > .2) {
-          o.x += dx * .055; o.y += dy * .055;
-          moving = true; place(o);
-        }
-      });
-      raf = moving ? requestAnimationFrame(step) : 0;   // loop sleeps when everything has settled
-    };
-    const wake = () => { if (!raf) raf = requestAnimationFrame(step); };
-
+    document.body.insertBefore(stage, document.body.firstChild);
+    const place = (o) => { o.el.style.transform = `translate3d(${(o.x - o.size / 2).toFixed(1)}px,${(o.y - o.size / 2).toFixed(1)}px,0)`; };
+    let started = false;
     const layout = () => {
-      w = window.innerWidth; h = window.innerHeight;
+      w = innerWidth; h = innerHeight;
       const base = Math.min(w, h);
       orbs.forEach((o) => {
         o.size = Math.round(base * (.95 + (o.i % 2) * .25));
         o.el.style.width = o.el.style.height = o.size + "px";
-        setTarget(o);
         if (!started) {
           // gentle entrance: start at the centre and ease out to the home positions
-          o.x = reduceMotion ? o.tx : w / 2;
-          o.y = reduceMotion ? o.ty : h / 2;
+          o.x = live ? w / 2 : homes[o.i][0] * w;
+          o.y = live ? h / 2 : homes[o.i][1] * h;
         }
         place(o);
       });
       started = true;
     };
-
     layout();
-    window.addEventListener("resize", () => { layout(); if (!reduceMotion) wake(); }, { passive: true });
-    if (!reduceMotion) {
-      wake();
-      window.addEventListener("pointermove", (e) => { mx = e.clientX; my = e.clientY; wake(); }, { passive: true });
-      window.addEventListener("pointerdown", (e) => { mx = e.clientX; my = e.clientY; wake(); }, { passive: true });
-      document.addEventListener("mouseleave", () => { mx = my = null; wake(); });
-    }
-  })();
 
-  /* ---------- Glass lens that trails the cursor (desktop only, sleeps when still) ---------- */
-  if (finePointer && !reduceMotion) {
-    const lens = document.createElement("div");
-    lens.className = "lens";
-    lens.setAttribute("aria-hidden", "true");
-    document.body.appendChild(lens);
-    let tx = -100, ty = -100, x = -100, y = -100, s = 1, ts = 1, shown = false, raf = 0;
-    const tick = () => {
-      x += (tx - x) * .22; y += (ty - y) * .22; s += (ts - s) * .18;
-      lens.style.transform = `translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,0) translate(-50%,-50%) scale(${s.toFixed(3)})`;
-      const moving = Math.abs(tx - x) > .15 || Math.abs(ty - y) > .15 || Math.abs(ts - s) > .003;
-      raf = moving ? requestAnimationFrame(tick) : 0;
+    /* --- tilt cards --- */
+    const tilts = !live || !finePointer ? [] : $$("[data-tilt]").map((el) => {
+      const s = { el, max: parseFloat(el.dataset.tilt) || 4, lift: parseFloat(el.dataset.lift) || 0, depth: $("[data-depth]", el), rx: 0, ry: 0, l: 0, dx: 0, dy: 0, busy: false };
+      return s;
+    });
+    const applyTilt = (s) => {
+      s.el.style.transform = (!s.rx && !s.ry && !s.l)
+        ? ""
+        : `perspective(900px) translate3d(0,${s.l.toFixed(2)}px,0) rotateX(${s.rx.toFixed(2)}deg) rotateY(${s.ry.toFixed(2)}deg)`;
+      if (s.depth) s.depth.style.translate = (s.dx || s.dy) ? `${s.dx.toFixed(2)}px ${s.dy.toFixed(2)}px` : "";
     };
-    const wake = () => { if (!raf) raf = requestAnimationFrame(tick); };
-    window.addEventListener("pointermove", (e) => {
-      if (e.pointerType === "touch") return;
-      tx = e.clientX; ty = e.clientY;
-      if (!shown) { x = tx; y = ty; shown = true; lens.classList.add("is-on"); }
-      const hit = e.target.closest && e.target.closest("a, button, .card, .profile-card");
-      ts = hit ? 1.8 : 1;
-      wake();
-    }, { passive: true });
-    document.addEventListener("mouseleave", () => { shown = false; lens.classList.remove("is-on"); });
-  }
 
-  /* ---------- Keep the copyright year current ---------- */
-  const year = document.getElementById("year");
-  if (year) year.textContent = new Date().getFullYear();
+    /* --- magnetic buttons (uses the individual `translate` property, so it never fights hover transforms) --- */
+    const mags = !live || !finePointer ? [] : $$(".btn").map((el) => ({ el, x: 0, y: 0, busy: false }));
+
+    /* --- glass lens that trails the cursor --- */
+    let lens = null, lensOn = false, lx = 0, ly = 0, ls = 1;
+    if (live && finePointer) {
+      lens = document.createElement("div");
+      lens.className = "lens";
+      lens.setAttribute("aria-hidden", "true");
+      document.body.appendChild(lens);
+    }
+
+    /* --- headline light --- */
+    const headline = $(".hero h1");
+    let hpx = 40;
+
+    /* --- scroll-driven bits --- */
+    const bar = $(".progress");
+    const useJsBar = !(window.CSS && CSS.supports && CSS.supports("animation-timeline: scroll()")) || reduceMotion;
+    const nav = $(".nav");
+    const spyEls = ["home", "about", "interests", "social"].map((id) => document.getElementById(id)).filter(Boolean);
+    const updateSpy = (max) => {
+      let cur = "home";
+      const line = h * .4;
+      for (const el of spyEls) if (el.getBoundingClientRect().top <= line) cur = el.id;
+      if (sy >= max - 4) cur = "social";
+      if (cur !== spyId) { spyId = cur; navApi.setActive(cur); }
+    };
+
+    /* --- the frame --- */
+    const frame = (t, dt) => {
+      let active = false;
+      const ease = (cur, tar, f) => (live ? damp(cur, tar, f, dt) : tar);
+
+      // read phase
+      const nsy = window.scrollY;
+      const scrolled = nsy !== sy;
+      sy = nsy;
+      const hv = ptr.on && ptr.el && ptr.el.closest ? ptr.el : null;
+      const glassEl = hv ? hv.closest(GLASS) : null;
+      if (glassEl !== lastGlass) { epoch++; lastGlass = glassEl; }
+      const tiltEl = live && hv && ptr.type !== "touch" ? hv.closest("[data-tilt]") : null;
+      const magEl = live && finePointer && hv ? hv.closest(".btn") : null;
+      const hot = hv ? !!hv.closest("a, button, .card, .profile-card") : false;
+
+      if (scrolled) {
+        const max = Math.max(1, root.scrollHeight - h);
+        if (bar && useJsBar) bar.style.setProperty("--p", clamp(sy / max, 0, 1).toFixed(4));
+        const sc = sy > 12;
+        if (sc !== navScrolled) { navScrolled = sc; nav.classList.toggle("is-scrolled", sc); }
+        updateSpy(max);
+      }
+
+      // spotlight on the hovered / pressed glass surface
+      if (glassEl && ptr.moved) {
+        const r = rectOf(glassEl);
+        glassEl.style.setProperty("--gx", (ptr.x - r.left).toFixed(1) + "px");
+        glassEl.style.setProperty("--gy", (ptr.y - r.top).toFixed(1) + "px");
+      }
+
+      // orbs: pointer pull + scroll parallax
+      const sp = clamp(sy, 0, 1400);
+      for (const o of orbs) {
+        let x = homes[o.i][0] * w, y = homes[o.i][1] * h;
+        if (live) {
+          y -= sp * depth[o.i];
+          if (ptr.on) { x += (ptr.x - x) * pull[o.i]; y += (ptr.y - y) * pull[o.i]; }
+        }
+        const nx = ease(o.x, x, .055), ny = ease(o.y, y, .055);
+        if (Math.abs(x - nx) > .2 || Math.abs(y - ny) > .2) active = true;
+        if (nx !== o.x || ny !== o.y) { o.x = nx; o.y = ny; place(o); }
+      }
+
+      // lens
+      if (lens) {
+        const show = ptr.on && ptr.type === "mouse";
+        if (show && !lensOn) { lensOn = true; lx = ptr.x; ly = ptr.y; lens.classList.add("is-on"); }
+        else if (!show && lensOn) { lensOn = false; lens.classList.remove("is-on"); }
+        if (lensOn) {
+          const ts = hot ? 1.8 : 1;
+          lx = damp(lx, ptr.x, .22, dt); ly = damp(ly, ptr.y, .22, dt); ls = damp(ls, ts, .18, dt);
+          lens.style.transform = `translate3d(${lx.toFixed(1)}px,${ly.toFixed(1)}px,0) translate(-50%,-50%) scale(${ls.toFixed(3)})`;
+          if (Math.abs(ptr.x - lx) > .15 || Math.abs(ptr.y - ly) > .15 || Math.abs(ts - ls) > .003) active = true;
+        }
+      }
+
+      // headline light follows the pointer (skipped while the hero is off-screen)
+      if (headline && live && finePointer && heroVisible) {
+        const tpx = ptr.on ? (ptr.x / w) * 100 : 40;
+        const npx = damp(hpx, tpx, .08, dt);
+        if (Math.abs(npx - hpx) > .02) { hpx = npx; headline.style.setProperty("--px", hpx.toFixed(1) + "%"); }
+        if (Math.abs(tpx - hpx) > .05) active = true;
+      }
+
+      // tilt + inner parallax
+      for (const s of tilts) {
+        let trx = 0, tryy = 0, tl = 0, tdx = 0, tdy = 0;
+        if (s.el === tiltEl) {
+          const r = rectOf(s.el);
+          const nx = clamp((ptr.x - r.left) / r.width - .5, -.5, .5);
+          const ny = clamp((ptr.y - r.top) / r.height - .5, -.5, .5);
+          trx = -ny * s.max; tryy = nx * s.max; tl = s.lift; tdx = -nx * 12; tdy = -ny * 12;
+        }
+        const err = Math.abs(s.rx - trx) + Math.abs(s.ry - tryy) + Math.abs(s.l - tl) + Math.abs(s.dx - tdx) + Math.abs(s.dy - tdy);
+        if (err > .02) {
+          s.rx = damp(s.rx, trx, .12, dt); s.ry = damp(s.ry, tryy, .12, dt); s.l = damp(s.l, tl, .12, dt);
+          s.dx = damp(s.dx, tdx, .12, dt); s.dy = damp(s.dy, tdy, .12, dt);
+          s.busy = true; active = true; applyTilt(s);
+        } else if (s.busy) {
+          s.rx = trx; s.ry = tryy; s.l = tl; s.dx = tdx; s.dy = tdy;
+          s.busy = false; applyTilt(s);
+        }
+      }
+
+      // magnetic buttons
+      for (const m of mags) {
+        let tx = 0, ty = 0;
+        if (m.el === magEl) {
+          const r = rectOf(m.el);
+          tx = ((ptr.x - r.left) / r.width - .5) * 8;
+          ty = ((ptr.y - r.top) / r.height - .5) * 6;
+        }
+        const err = Math.abs(m.x - tx) + Math.abs(m.y - ty);
+        if (err > .02) {
+          m.x = damp(m.x, tx, .18, dt); m.y = damp(m.y, ty, .18, dt);
+          m.busy = true; active = true;
+          m.el.style.translate = `${m.x.toFixed(2)}px ${m.y.toFixed(2)}px`;
+        } else if (m.busy) {
+          m.x = tx; m.y = ty; m.busy = false;
+          m.el.style.translate = (tx || ty) ? `${tx.toFixed(2)}px ${ty.toFixed(2)}px` : "";
+        }
+      }
+
+      ptr.moved = false;
+      return active;
+    };
+
+    /* --- input --- */
+    const onMove = (e) => {
+      ptr.x = e.clientX; ptr.y = e.clientY; ptr.el = e.target; ptr.type = e.pointerType || "mouse";
+      ptr.on = true; ptr.moved = true;
+      wake();
+    };
+    const off = () => { ptr.on = false; ptr.el = null; wake(); };
+    addEventListener("pointermove", onMove, { passive: true });
+    addEventListener("pointerdown", onMove, { passive: true });
+    addEventListener("pointerup", (e) => { if (e.pointerType === "touch") off(); }, { passive: true });
+    addEventListener("pointercancel", off, { passive: true });
+    document.addEventListener("mouseleave", off);
+    addEventListener("scroll", () => { epoch++; wake(); }, { passive: true });
+    let resizeRaf = 0;
+    addEventListener("resize", () => {
+      if (resizeRaf) return;
+      resizeRaf = requestAnimationFrame(() => { resizeRaf = 0; epoch++; layout(); sy = -1; navApi.refresh(); wake(); });
+    }, { passive: true });
+    addEventListener("load", () => { epoch++; sy = -1; navApi.refresh(); wake(); });
+
+    const hero = $(".hero");
+    if (hero && "IntersectionObserver" in window) {
+      new IntersectionObserver((es) => { heroVisible = es[0].isIntersecting; if (heroVisible) wake(); }).observe(hero);
+    }
+    wake();
+  });
+
+  /* ===== 8. Copyright year ===== */
+  safe(() => { const y = $("#year"); if (y) y.textContent = new Date().getFullYear(); });
 })();
 </script>
 
