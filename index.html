@@ -2,8 +2,15 @@
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#090b10">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#041522">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Arghya Zeo">
+<meta name="format-detection" content="telephone=no">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
 <meta name="color-scheme" content="dark light">
 <meta name="description" content="The personal website of Arghya Sarkar, also known online as Arghya Zeo. Find his public profile and projects.">
 <meta name="author" content="Arghya Sarkar">
@@ -48,9 +55,18 @@
   } catch (_) {}
 })();
 </script>
+<script>
+(() => {
+  try {
+    const n = navigator, c = n.connection || {};
+    if (c.saveData || n.deviceMemory <= 4 || n.hardwareConcurrency <= 4) document.documentElement.classList.add("az-lite");
+  } catch (_) {}
+})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400&family=Manrope:wght@400..800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400&family=Manrope:wght@400..800&display=swap" rel="stylesheet"></noscript>
 <style>
 :root{--bg:#041522;--panel:rgba(8,35,51,.58);--panel2:rgba(15,57,72,.64);--text:#f1fbfa;--muted:#b4d0d3;--line:rgba(190,235,235,.19);--acid:#80eadb;--blue:#8bc9f2;--shadow:0 24px 70px #00131d66;--max:1120px;--ease:cubic-bezier(.2,.75,.2,1)}
 :root[data-theme="light"]{--bg:#d8f0ed;--panel:rgba(239,255,251,.56);--panel2:rgba(224,249,244,.74);--text:#102c36;--muted:#3c6670;--line:rgba(28,91,101,.20);--acid:#087f83;--blue:#287db5;--shadow:0 22px 65px #164b571f;color-scheme:light}
@@ -109,24 +125,28 @@ h1 .last{color:var(--acid)}
 .btn,.copy-handle,.navlinks a,.theme,.menu{ -webkit-tap-highlight-color:transparent;touch-action:manipulation}
 .tap-ripple{position:absolute;border-radius:50%;pointer-events:none;transform:scale(0);background:currentColor;opacity:.22;animation:tap-ripple .58s ease-out forwards}
 @keyframes tap-ripple{to{transform:scale(1);opacity:0}}
-@media(prefers-reduced-motion:reduce){.tap-ripple{display:none}.theme-icon{transition:none}}
+@media(prefers-reduced-motion:reduce){.tap-ripple{display:none}.theme-icon{transition:none}.profile-photo{transition:none}}
 .btn:disabled{opacity:.42;cursor:not-allowed;pointer-events:none;transform:none;filter:saturate(.45)}
 .btn.primary{background:var(--acid);border-color:var(--acid);color:#10140c}
 .btn .arrow{transition:transform .25s}
 .btn:hover .arrow{transform:translate(3px,-3px)}
 .identity{display:grid;place-items:center;min-height:440px}
-.artboard{position:relative;width:min(100%,420px);aspect-ratio:1/1.05;border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,var(--panel),color-mix(in srgb,var(--panel2) 65%,var(--bg)));overflow:hidden;box-shadow:var(--shadow);isolation:isolate;transform-style:preserve-3d;transition:transform .2s ease-out}
+.artboard{position:relative;width:min(100%,420px);aspect-ratio:1/1.05;border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,var(--panel),color-mix(in srgb,var(--panel2) 65%,var(--bg)));overflow:hidden;box-shadow:var(--shadow);isolation:isolate;transform-style:preserve-3d}
 .artboard:before,.artboard:after{content:"";position:absolute;inset:0;pointer-events:none}
 .artboard:before{background:linear-gradient(90deg,transparent 49.8%,var(--line) 50%,transparent 50.2%),linear-gradient(transparent 49.8%,var(--line) 50%,transparent 50.2%);opacity:.55}
 .artboard:after{inset:13%;border:1px solid color-mix(in srgb,var(--acid) 40%,transparent);border-radius:50%;transform:rotate(-28deg) scaleX(.72)}
 .art-label{position:absolute;top:22px;left:22px;right:22px;display:flex;justify-content:space-between;color:var(--muted);font: .68rem "DM Mono",monospace;letter-spacing:.1em;text-transform:uppercase}
 .monogram{position:absolute;inset:0;display:grid;place-items:center;font-size:clamp(9rem,24vw,16rem);font-weight:800;letter-spacing:-.13em;color:var(--text);line-height:1;text-shadow:0 18px 60px #0005}
 .monogram span{color:var(--acid);transform:translateY(-.035em)}
-.profile-photo{position:absolute;z-index:2;width:58%;aspect-ratio:1;border-radius:50%;object-fit:cover;object-position:center 35%;top:50%;left:50%;transform:translate(-50%,-53%);border:3px solid rgba(190,250,245,.72);box-shadow:0 18px 65px rgba(0,10,22,.42),0 0 0 10px rgba(128,234,219,.08);background:var(--panel2);opacity:0;transition:opacity .5s ease,transform .5s ease}
+.profile-photo{position:absolute;z-index:2;width:58%;aspect-ratio:1;border-radius:50%;object-fit:cover;object-position:center 35%;top:50%;left:50%;transform:translate(-50%,-53%);border:3px solid rgba(190,250,245,.72);box-shadow:0 18px 65px rgba(0,10,22,.42),0 0 0 10px rgba(128,234,219,.08);background:var(--panel2);opacity:0;transition:opacity .5s ease}
 .artboard.has-photo .profile-photo{opacity:1}
 .artboard.has-photo .monogram{opacity:0}
 .artboard.has-photo .orbit{opacity:.72}
 .profile-photo:focus{outline:2px solid var(--acid);outline-offset:5px}
+
+/* Portrait and press motion are driven by the AZ Motion layer below. */
+.profile-photo{transform-origin:center}
+.tap-ripple{mix-blend-mode:screen}
 .orbit{position:absolute;width:70%;height:70%;border:1px solid color-mix(in srgb,var(--blue) 70%,transparent);border-radius:50%;top:15%;left:15%;transform:rotate(35deg) scaleY(.42);animation:orbit 18s linear infinite}
 .orbit:after{content:"";position:absolute;width:11px;height:11px;background:var(--acid);border-radius:50%;top:11%;left:11%;box-shadow:0 0 24px var(--acid)}
 @keyframes orbit{to{transform:rotate(395deg) scaleY(.42)}}
@@ -170,9 +190,6 @@ h2{font-size:clamp(2.3rem,5vw,4.5rem);letter-spacing:-.075em;line-height:1.03;ma
 .footer a:hover{color:var(--acid)}
 .toast{position:fixed;z-index:100;bottom:22px;left:50%;transform:translate(-50%,15px);opacity:0;pointer-events:none;padding:11px 16px;border:1px solid var(--line);border-radius:10px;background:var(--panel);box-shadow:var(--shadow);font-size:.85rem;transition:opacity .2s,transform .2s}
 .toast.show{opacity:1;transform:translate(-50%,0)}
-.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
-.reveal.visible{opacity:1;transform:none}
-@media(hover:none){.reveal{opacity:1;transform:none}}
 @media(max-width:760px){
  .shell{width:min(var(--max),calc(100% - 30px))}
  .topbar{top:7px;padding-top:7px}
@@ -195,7 +212,6 @@ h2{font-size:clamp(2.3rem,5vw,4.5rem);letter-spacing:-.075em;line-height:1.03;ma
 }
 @media(prefers-reduced-motion:reduce){
  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
- .reveal{opacity:1;transform:none}
 }
 
 /* Ocean-inspired visual system: original lightweight canvas, not a copied shader. */
@@ -241,10 +257,98 @@ h1 .last{background:linear-gradient(100deg,#a9fff0,#71d6df 48%,#a2c8ff);backgrou
 .ig-mark{border-radius:50%;background:rgba(128,234,219,.08)}
 .toast{border-radius:999px}
 .footer{color:var(--muted)}
-@media(max-width:760px){.hero{padding-top:72px}.nav{border-radius:18px}.navlinks{background:rgba(5,31,45,.94);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}:root[data-theme="light"] .navlinks{background:rgba(240,255,251,.96)}.explorer{grid-template-columns:1fr}.filters{justify-content:flex-start}}
+@media(max-width:760px){
+ .hero{padding-top:72px}
+ .nav{border-radius:18px}
+ .navlinks{background:rgba(5,31,45,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+ :root[data-theme="light"] .navlinks{background:rgba(240,255,251,.96)}
+ .explorer{grid-template-columns:1fr}
+ .filters{justify-content:flex-start}
+ .nav,.artboard,.tile,.connect,.searchbox,.filter,.copy-handle,.toast{backdrop-filter:blur(8px) saturate(125%);-webkit-backdrop-filter:blur(8px) saturate(125%)}
+ .hero:before{filter:none;opacity:.7}
+}
 @media(prefers-reduced-motion:reduce){#az-ocean{display:none}body{background:linear-gradient(160deg,#052438,#063f4b 58%,#041522)}:root[data-theme="light"] body{background:linear-gradient(160deg,#d8f0ed,#b5e2dc 58%,#d8f0ed)}}
 
+/* ===== AZ Motion layer: springs drive transform/opacity only ===== */
+@keyframes az-in{from{opacity:0;translate:0 26px;scale:.97}}
+@keyframes az-drop{from{opacity:0;translate:0 -14px}}
+@keyframes fx-breathe{from{scale:.93}to{scale:1.05}}
+.topbar{animation:az-drop .8s var(--ease) backwards}
+.hero-copy>*{animation:az-in .9s var(--ease) backwards}
+.hero-copy>:nth-child(2){animation-delay:.07s}.hero-copy>:nth-child(3){animation-delay:.14s}.hero-copy>:nth-child(4){animation-delay:.21s}
+.identity .artboard{animation:az-in 1s var(--ease) .16s backwards}
+.footer a{display:inline-block}
+.fx{-webkit-tap-highlight-color:transparent}
+.az-fx .fx{position:relative;transition-property:background,background-color,border-color,color,box-shadow,opacity,translate,filter;transition-duration:.32s;transition-timing-function:var(--ease)}
+.az-fx .fx-lit{overflow:hidden;isolation:isolate}
+.az-fx .btn:hover,.az-fx .btn:active,.az-fx .copy-handle:hover,.az-fx .copy-handle:active,.az-fx .navlinks a:hover,.az-fx .theme:active,.az-fx .menu:active,.az-fx .tile:hover,.az-fx .connect:hover{transform:none}
+.tile,.connect{touch-action:pan-y}
+.fx-lit::after{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .35s var(--ease);background:radial-gradient(circle 130px at var(--lx,50%) var(--ly,50%),rgba(200,255,248,.2),transparent 70%)}
+.fx-lit.is-lit::after{opacity:1}
+:root[data-theme="light"] .fx-lit::after{background:radial-gradient(circle 130px at var(--lx,50%) var(--ly,50%),rgba(255,255,255,.55),transparent 70%)}
+.tap-ripple{z-index:0}
+/* Profile card layers (created by script): soft glow, moving light, edge highlight */
+.identity>.artboard{touch-action:pan-y;-webkit-tap-highlight-color:transparent}
+.az-fx .artboard,.az-fx .profile-photo{will-change:transform}
+.profile-photo{-webkit-user-drag:none;user-select:none;-webkit-touch-callout:none}
+.fx-glow{position:absolute;left:50%;top:50%;width:min(140%,540px);aspect-ratio:1;translate:-50% -50%;z-index:-1;pointer-events:none;border-radius:50%;opacity:.5;background:radial-gradient(circle,rgba(110,238,222,.34),rgba(70,165,215,.14) 38%,transparent 68%);animation:fx-breathe 7s ease-in-out infinite alternate}
+:root[data-theme="light"] .fx-glow{background:radial-gradient(circle,rgba(16,150,150,.26),rgba(40,125,181,.10) 38%,transparent 68%)}
+.fx-glare{position:absolute;inset:-25%;z-index:3;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 50%,rgba(255,255,255,.3),rgba(190,255,246,.1) 24%,transparent 46%)}
+:root[data-theme="light"] .fx-glare{background:radial-gradient(circle at 50% 50%,rgba(255,255,255,.55),rgba(255,255,255,.18) 24%,transparent 46%)}
+.fx-edge{position:absolute;inset:0;z-index:4;pointer-events:none;border-radius:inherit;padding:1.5px;background:radial-gradient(circle at var(--ex,50%) var(--ey,0%),rgba(225,255,251,.95),rgba(128,234,219,.38) 26%,transparent 58%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude}
+/* Scroll reveal: opacity + individual translate/scale, so it never fights card transforms */
+.reveal{opacity:0;translate:0 22px;scale:.985;transition:none}
+.reveal.visible{opacity:1;translate:none;scale:none;animation:az-in .8s var(--ease) var(--d,0s) backwards}
+/* Weak devices: drop extra blur layers and decorative loops */
+.az-lite .hero:before{filter:none}
+.az-lite .btn,.az-lite .tile,.az-lite .connect,.az-lite .filter,.az-lite .copy-handle,.az-lite .searchbox{backdrop-filter:none;-webkit-backdrop-filter:none}
+.az-lite .fx-glow{animation:none}
+.az-lite .fx-lit::after{display:none}
+@media(max-width:760px){
+ .navlinks{display:flex;visibility:hidden;opacity:0;translate:0 -8px;scale:.97;transform-origin:top right;pointer-events:none;transition:opacity .25s var(--ease),translate .35s var(--ease),scale .35s var(--ease),visibility 0s linear .35s}
+ .navlinks.open{visibility:visible;opacity:1;translate:none;scale:none;pointer-events:auto;transition-delay:0s}
+ .navlinks.open a{animation:az-in .4s var(--ease) backwards}
+ .navlinks.open a:nth-child(2){animation-delay:.04s}.navlinks.open a:nth-child(3){animation-delay:.08s}.navlinks.open a:nth-child(4){animation-delay:.12s}
+}
+@media(prefers-reduced-motion:reduce){.reveal,.reveal.visible{opacity:1;translate:none;scale:none;animation:none}.fx-glow{animation:none}.topbar,.hero-copy>*,.identity .artboard{animation:none}.navlinks{transition:none}}
+
+/* ===== Mobile app mode + low-end tuning ===== */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-x:hidden;overscroll-behavior-y:none;touch-action:pan-x pan-y;-webkit-tap-highlight-color:transparent}
+body{overflow-x:visible;overscroll-behavior-y:none;touch-action:pan-x pan-y;padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px);min-height:100vh;min-height:100dvh}
+/* Clip anything (glows, blobs) that pokes past the screen edge: this is what makes phones zoom out / pan sideways */
+main{overflow-x:hidden;overflow-x:clip}
+input,select,textarea{font-size:16px}
+.topbar{top:calc(12px + env(safe-area-inset-top,0px))}
+.footer{padding-bottom:calc(42px + env(safe-area-inset-bottom,0px))}
+.toast{bottom:calc(22px + env(safe-area-inset-bottom,0px))}
+@media(pointer:coarse){
+ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+ input,textarea{-webkit-user-select:text;user-select:text}
+ img{-webkit-user-drag:none}
+}
+@media(hover:none){.tile:hover,.connect:hover,.btn:hover,.copy-handle:hover{transform:none}}
+@media(max-width:760px),(pointer:coarse){
+ :root{--panel:rgba(8,38,55,.80);--panel2:rgba(15,57,72,.86)}
+ :root[data-theme="light"]{--panel:rgba(236,255,250,.80);--panel2:rgba(224,249,244,.88)}
+ .nav,.artboard,.tile,.connect,.searchbox,.filter,.copy-handle,.toast,.btn,.navlinks{backdrop-filter:none;-webkit-backdrop-filter:none}
+ .monogram{text-shadow:none}
+ .artboard{box-shadow:0 12px 32px rgba(0,12,24,.28)}
+ .nav,.tile,.connect,.btn.primary{box-shadow:none}
+ .theme,.menu{will-change:auto}
+ .hero:before{filter:none}
+}
+@media(max-width:760px){.topbar{top:calc(7px + env(safe-area-inset-top,0px))}}
+.az-lite .orbit{animation:none}
+.az-lite .fx-edge,.az-lite .fx-glare,.az-lite .hero:before,.az-lite body:after{display:none}
+.az-lite .artboard,.az-lite .tile,.az-lite .connect,.az-lite .nav,.az-lite .btn.primary{box-shadow:none}
+.az-lite .artboard:after{box-shadow:none}
+.az-lite .tile:hover,.az-lite .connect:hover{transform:none}
+.az-lite .topbar,.az-lite .hero-copy>*,.az-lite .identity .artboard{animation-duration:.4s}
+.az-lite .reveal.visible{animation-duration:.4s}
+.az-lite .artboard,.az-lite .profile-photo{will-change:auto}
+@media(pointer:coarse){.fx-glow{animation:none}.fx-lit::after{display:none}}
 </style>
+<noscript><style>.reveal{opacity:1;translate:none;scale:none}</style></noscript>
 </head>
 <body>
 <canvas id="az-ocean" aria-hidden="true"></canvas>
@@ -282,7 +386,7 @@ h1 .last{background:linear-gradient(100deg,#a9fff0,#71d6df 48%,#a2c8ff);backgrou
     <div class="artboard" id="artboard" aria-label="Original animated A Z monogram artwork">
       <div class="art-label"><span>Ocean / identity study</span><span>AZ—01</span></div>
       <div class="orbit"></div>
-      <img class="profile-photo" id="profilePhoto" src="profile.jpg" alt="Portrait of Arghya Sarkar" loading="eager" decoding="async">
+      <img class="profile-photo" id="profilePhoto" src="profile.jpg" alt="Portrait of Arghya Sarkar" loading="eager" decoding="async" fetchpriority="high" draggable="false">
       <div class="monogram" aria-hidden="true">A<span>Z</span></div>
       <div class="art-foot"><div><strong>Arghya Sarkar</strong><small>also known as Arghya Zeo</small></div><div class="stamp">PERSONAL<br>PROFILE / 2026</div></div>
     </div>
@@ -345,38 +449,19 @@ h1 .last{background:linear-gradient(100deg,#a9fff0,#71d6df 48%,#a2c8ff);backgrou
     const light = root.dataset.theme === "light";
     themeButton.innerHTML = `<span class="theme-icon" aria-hidden="true">${light ? "☾" : "☼"}</span>`;
     themeButton.setAttribute("aria-label", light ? "Switch to dark theme" : "Switch to light theme");
-    $('meta[name="theme-color"]').content = light ? "#f3f4ee" : "#090b10";
+    $('meta[name="theme-color"]').content = light ? "#d8f0ed" : "#041522";
   };
   syncTheme();
   themeButton.addEventListener("click", () => {
     const nextTheme = root.dataset.theme === "light" ? "dark" : "light";
     const change = () => { root.dataset.theme = nextTheme; };
     themeButton.classList.add("is-changing");
-    if (!reduced && document.startViewTransition) document.startViewTransition(change);
+    if (!reduced && document.startViewTransition && !root.classList.contains("az-lite") && !matchMedia("(pointer:coarse)").matches) document.startViewTransition(change);
     else change();
     try { localStorage.setItem("az-theme", nextTheme); } catch (_) {}
     syncTheme();
     setTimeout(() => themeButton.classList.remove("is-changing"), reduced ? 0 : 650);
   });
-
-  // Material-style tap feedback for buttons and links, including touch screens.
-  if (!reduced) {
-    document.addEventListener("pointerdown", event => {
-      const target = event.target.closest(".btn, .theme, .menu, .navlinks a, .copy-handle");
-      if (!target || target.matches(":disabled")) return;
-      const rect = target.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height) * 1.7;
-      const ripple = document.createElement("span");
-      ripple.className = "tap-ripple";
-      ripple.style.width = ripple.style.height = `${size}px`;
-      ripple.style.left = `${event.clientX - rect.left - size / 2}px`;
-      ripple.style.top = `${event.clientY - rect.top - size / 2}px`;
-      target.style.position = target.classList.contains("navlinks") ? "relative" : target.style.position;
-      if (getComputedStyle(target).position === "static") target.style.position = "relative";
-      target.append(ripple);
-      ripple.addEventListener("animationend", () => ripple.remove(), {once:true});
-    }, {passive:true});
-  }
 
   // Compact mobile navigation closes after a selection or Escape.
   const menuButton = $("#menuToggle"), nav = $("#navlinks");
@@ -407,29 +492,28 @@ h1 .last{background:linear-gradient(100deg,#a9fff0,#71d6df 48%,#a2c8ff);backgrou
 
   // Scroll progress and active section indicator, updated in one animation frame.
   let ticking = false;
+  const bar = $(".progress"), navLinks = $$("#navlinks a[href^='#']");
+  const secs = ["about","interests","social"].map(id => document.getElementById(id)).filter(Boolean);
+  let tops = [], maxScroll = 0, activeId = "";
+  const measure = () => { tops = secs.map(el => [el.id, el.offsetTop]); maxScroll = document.documentElement.scrollHeight - innerHeight; };
   const updateScroll = () => {
-    const max = document.documentElement.scrollHeight - innerHeight;
-    $(".progress").style.setProperty("--progress", max > 0 ? String(scrollY / max) : "0");
+    bar.style.setProperty("--progress", maxScroll > 0 ? String(Math.min(1, scrollY / maxScroll)) : "0");
     const marker = scrollY + innerHeight * .34;
     let active = "home";
-    ["about","interests","social"].forEach(id => { const el = document.getElementById(id); if (el && el.offsetTop <= marker) active = id; });
-    $$("#navlinks a[href^='#']").forEach(a => { const isActive = a.hash === "#" + active; a.classList.toggle("active", isActive); if (isActive) a.setAttribute("aria-current", "location"); else a.removeAttribute("aria-current"); });
+    for (const [id, top] of tops) if (top <= marker) active = id;
+    if (active !== activeId) {
+      activeId = active;
+      navLinks.forEach(a => { const on = a.hash === "#" + active; a.classList.toggle("active", on); if (on) a.setAttribute("aria-current", "location"); else a.removeAttribute("aria-current"); });
+    }
     ticking = false;
   };
   addEventListener("scroll", () => { if (!ticking) { requestAnimationFrame(updateScroll); ticking = true; } }, {passive:true});
-  addEventListener("resize", updateScroll, {passive:true});
-  updateScroll();
+  let rmT = 0;
+  const remeasure = () => { cancelAnimationFrame(rmT); rmT = requestAnimationFrame(() => { measure(); updateScroll(); }); };
+  addEventListener("resize", remeasure, {passive:true});
+  addEventListener("load", remeasure);
+  measure(); updateScroll();
 
-  // A restrained pointer response on the original monogram artwork; disabled on touch/reduced-motion.
-  const art = $("#artboard");
-  if (!reduced && matchMedia("(hover:hover) and (pointer:fine)").matches) {
-    art.addEventListener("pointermove", e => {
-      const r = art.getBoundingClientRect();
-      const x = (e.clientX-r.left)/r.width-.5, y = (e.clientY-r.top)/r.height-.5;
-      art.style.transform = `perspective(900px) rotateX(${-y*5}deg) rotateY(${x*6}deg)`;
-    });
-    art.addEventListener("pointerleave", () => { art.style.transform = ""; });
-  }
   $("#year").textContent = new Date().getFullYear();
 })();
 </script>
@@ -469,101 +553,337 @@ h1 .last{background:linear-gradient(100deg,#a9fff0,#71d6df 48%,#a2c8ff);backgrou
     }
   });
 
-  // Scroll progress fallback and active section marker.
-  const bar = $(".progress");
-  const navLinks = $$("#navlinks a[href^='#']");
-  const sections = navLinks.map(a => $(a.getAttribute("href"))).filter(Boolean);
-  const onScroll = () => {
-    const max = document.documentElement.scrollHeight - innerHeight;
-    if (bar) bar.style.setProperty("--progress", max > 0 ? String(scrollY / max) : "0");
-    let active = sections[0];
-    sections.forEach(section => { if (section.getBoundingClientRect().top < innerHeight * .38) active = section; });
-    navLinks.forEach(a => a.classList.toggle("active", a.hash === `#${active?.id}`));
-  };
-  addEventListener("scroll", onScroll, {passive:true});
-  onScroll();
 })();
 </script>
 
 
 <script>
-/* AZ Ocean Field — a small original 2D water surface with touch ripples. */
+/* AZ Motion — one shared spring engine (transform/opacity only, one rAF loop, delegated listeners). */
+(() => {
+  "use strict";
+  const root = document.documentElement;
+  const AZ = window.AZ = window.AZ || {};
+  Object.assign(AZ, {x:-1e4, y:-1e4, type:"mouse", inWin:false, last:0, lite:root.classList.contains("az-lite")});
+  const setLite = () => { if (!AZ.lite) { AZ.lite = true; root.classList.add("az-lite"); } };
+  const nv = navigator, cn = nv.connection || {};
+  if (cn.saveData || nv.deviceMemory <= 3 || nv.hardwareConcurrency <= 4) setLite();
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const coarse = matchMedia("(pointer:coarse)").matches;
+  const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
+  const sp = (x = 0) => ({x, v:0});
+  const stepS = (s, t, k, c, dt) => { s.v += (k * (t - s.x) - c * s.v) * dt; s.x += s.v * dt; };
+  const rest = (s, t) => Math.abs(s.x - t) < .003 && Math.abs(s.v) < .03;
+  const f = n => n.toFixed(3);
+
+  // Staggered entrance for sibling reveal blocks.
+  document.querySelectorAll(".reveal").forEach(el => {
+    const sib = [...el.parentElement.children].filter(c => c.classList.contains("reveal"));
+    el.style.setProperty("--d", Math.min(sib.indexOf(el), 3) * .08 + "s");
+  });
+
+  // ---- Interactive elements: hover lift, magnetism, pointer light, press squash + spring-back ----
+  const FX = ".btn,.navlinks a,.theme,.menu,.filter,.copy-handle,.tile,.connect,.brand,.footer a";
+  document.querySelectorAll(FX).forEach(el => { el.classList.add("fx"); if (!el.matches(".brand,.footer a")) el.classList.add("fx-lit"); });
+  const states = new WeakMap(), active = new Set();
+  const getSt = el => {
+    let s = states.get(el);
+    if (!s) {
+      s = {el, card:el.matches(".tile,.connect"), soft:el.matches(".brand,.footer a,.navlinks a"), glow:el.classList.contains("fx-lit"),
+           x:sp(), y:sp(), s:sp(1), q:sp(), rx:sp(), ry:sp(), k:190, c:24, hov:false, prs:false, r:null, lit:false, lx:-99, ly:-99};
+      states.set(el, s);
+    }
+    return s;
+  };
+  const wakeSt = st => { active.add(st); st.el.style.willChange = "transform"; };
+
+  function stepSt(st, dt) {
+    const el = st.el, on = st.hov || st.prs;
+    let tx = 0, ty = 0, ts = 1, tq = 0, trx = 0, tr_y = 0;
+    if (on) {
+      if (!st.r) { const b = el.getBoundingClientRect(); st.r = {cx:b.left + b.width / 2 - st.x.x, cy:b.top + b.height / 2 - st.y.x, w:b.width, h:b.height, l:b.left - st.x.x, t:b.top - st.y.x}; }
+      const r = st.r, dx = AZ.x - r.cx, dy = AZ.y - r.cy;
+      if (st.card) { const nx = clamp(dx / (r.w / 2), -1, 1), ny = clamp(dy / (r.h / 2), -1, 1); tx = nx * 2.5; ty = -5 + ny * 1.5; ts = 1.012; trx = -ny * 3; tr_y = nx * 3.5; }
+      else { const m = st.soft ? .12 : .2; tx = clamp(dx * m, -9, 9); ty = clamp(dy * m, -6, 6) - 1.5; ts = st.soft ? 1.025 : 1.04; }
+      if (st.prs) { ts = st.card ? .978 : .955; tq = st.card ? .012 : .03; ty += 2; }
+      if (st.glow && !AZ.lite && AZ.type !== "touch") {
+        const lx = AZ.x - r.l, ly = AZ.y - r.t;
+        if (Math.abs(lx - st.lx) > .6 || Math.abs(ly - st.ly) > .6) { st.lx = lx; st.ly = ly; el.style.setProperty("--lx", lx.toFixed(1) + "px"); el.style.setProperty("--ly", ly.toFixed(1) + "px"); }
+        if (!st.lit) { st.lit = true; el.classList.add("is-lit"); }
+      }
+    } else if (st.lit) { st.lit = false; el.classList.remove("is-lit"); }
+    stepS(st.x, tx, st.k, st.c, dt); stepS(st.y, ty, st.k, st.c, dt); stepS(st.s, ts, st.k, st.c, dt); stepS(st.q, tq, st.k, st.c, dt);
+    if (st.card) { stepS(st.rx, trx, st.k, st.c, dt); stepS(st.ry, tr_y, st.k, st.c, dt); }
+    if (!on && rest(st.x, 0) && rest(st.y, 0) && rest(st.s, 1) && rest(st.q, 0) && rest(st.rx, 0) && rest(st.ry, 0)) {
+      el.style.transform = ""; el.style.willChange = ""; active.delete(st); return;
+    }
+    el.style.transform = `translate3d(${f(st.x.x)}px,${f(st.y.x)}px,0)` +
+      (st.card ? ` perspective(800px) rotateX(${f(st.rx.x)}deg) rotateY(${f(st.ry.x)}deg)` : "") +
+      ` scale(${f(st.s.x * (1 + st.q.x))},${f(st.s.x * (1 - st.q.x))})`;
+  }
+
+  function ripple(el, e, mult) {
+    const b = el.getBoundingClientRect(), size = Math.max(b.width, b.height) * mult;
+    const old = el.querySelectorAll(":scope>.tap-ripple"); if (old.length > 2) old[0].remove();
+    const r = document.createElement("span"); r.className = "tap-ripple";
+    r.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX - b.left - size / 2}px;top:${e.clientY - b.top - size / 2}px`;
+    el.append(r); r.addEventListener("animationend", () => r.remove(), {once:true});
+  }
+
+  // ---- Profile card: tilt, magnetism, light, parallax, glow, edge highlight, independent photo ----
+  const card = document.getElementById("artboard"), photo = document.getElementById("profilePhoto");
+  const C = {x:sp(), y:sp(), rx:sp(), ry:sp(), s:sp(1), q:sp()}, P = {x:sp(), y:sp(), rx:sp(), ry:sp(), s:sp(1), q:sp()};
+  let relT = 0, vis = true, cardPrs = false, photoPrs = false, cRect = null, ck = 120, cc = 19, cw = 420, ch = 440;
+  let lx = .5, ly = .5, gi = .2, ha = 0, gx = 0, gy = 0, ef = 0, glow, glare, edge;
+  const HAS_T = !!(window.CSS && CSS.supports && CSS.supports("translate", "1px 1px"));
+  const layers = [];
+  if (card && card.parentElement) {
+    const mk = (cls, parent, before) => { const s = document.createElement("span"); s.className = cls; s.setAttribute("aria-hidden", "true"); parent.insertBefore(s, before || null); return s; };
+    glow = mk("fx-glow", card.parentElement, card); glare = mk("fx-glare", card); edge = mk("fx-edge", card);
+    [[".art-label", -5, -4], [".orbit", 9, 7], [".monogram", -11, -9], [".art-foot", -4, -3]].forEach(([s, a, b]) => { const el = card.querySelector(s); if (el) layers.push({el, a, b}); });
+    cw = card.offsetWidth || cw; ch = card.offsetHeight || ch;
+    new IntersectionObserver(([e]) => { vis = e.isIntersecting; if (vis) wake(); }).observe(card);
+  }
+
+  function stepCard(dt, now) {
+    const hover = AZ.type !== "touch" && AZ.inWin;
+    let nx = 0, ny = 0, on = false;
+    if (cardPrs || hover) {
+      if (!cRect || now - cRect.t0 > 600) { const b = card.getBoundingClientRect(); cRect = {cx:b.left + b.width / 2 - C.x.x, cy:b.top + b.height / 2 - C.y.x, w:cw, h:ch, t0:now}; }
+      const dx = AZ.x - cRect.cx, dy = AZ.y - cRect.cy;
+      on = cardPrs || (Math.abs(dx) < cw / 2 + 36 && Math.abs(dy) < ch / 2 + 36);
+      nx = clamp(dx / (cw / 2), -1, 1); ny = clamp(dy / (ch / 2), -1, 1);
+    }
+    if (!cardPrs && now > relT) { ck = on ? 150 : 120; cc = on ? 22 : 19; }
+    const k = cardPrs ? 320 : ck, c = cardPrs ? 28 : cc;
+    let tx = 0, ty = 0, trx = 0, tr_y = 0, ts = 1, tq = 0;
+    if (on) { tx = nx * 5; ty = ny * 4 - 3; trx = -ny * 6; tr_y = nx * 7; ts = 1.015; }
+    if (cardPrs) { ts = .966; tq = .022; ty += 3; }
+    stepS(C.x, tx, k, c, dt); stepS(C.y, ty, k, c, dt); stepS(C.rx, trx, k, c, dt); stepS(C.ry, tr_y, k, c, dt); stepS(C.s, ts, k, c, dt); stepS(C.q, tq, k, c, dt);
+    card.style.transform = `perspective(900px) translate3d(${f(C.x.x)}px,${f(C.y.x)}px,0) rotateX(${f(C.rx.x)}deg) rotateY(${f(C.ry.x)}deg) scale(${f(C.s.x * (1 + C.q.x))},${f(C.s.x * (1 - C.q.x))})`;
+
+    // Moving light + edge highlight: follows the pointer, or drifts slowly when idle.
+    const th = now * .00035, a = 1 - Math.exp(-dt * (on ? 12 : 3));
+    lx += ((on ? nx * .5 + .5 : .5 + .5 * Math.cos(th)) - lx) * a; ly += ((on ? ny * .5 + .5 : .5 + .45 * Math.sin(th * 1.3)) - ly) * a;
+    gi += ((cardPrs ? .95 : on ? .8 : .24) - gi) * (1 - Math.exp(-dt * 6)); ha += ((on ? 1 : 0) - ha) * (1 - Math.exp(-dt * 5));
+    gx += ((on ? nx * 14 : 0) - gx) * a; gy += ((on ? ny * 12 : 0) - gy) * a;
+    if (!AZ.lite) { glare.style.transform = `translate3d(${f((lx - .5) * cw * .9)}px,${f((ly - .5) * ch * .9)}px,0)`; glare.style.opacity = f(gi); }
+    glow.style.transform = `translate3d(${f(gx)}px,${f(gy)}px,0) scale(${f(1 + .04 * ha)})`; glow.style.opacity = f(.5 + .4 * ha);
+    if (on || ++ef % (AZ.lite ? 4 : 2) === 0) { edge.style.setProperty("--ex", (50 + (lx - .5) * 150).toFixed(1) + "%"); edge.style.setProperty("--ey", (50 + (ly - .5) * 150).toFixed(1) + "%"); edge.style.opacity = f(.65 + .35 * ha); }
+
+    // Layered parallax (opposite to tilt) and the independently moving portrait.
+    const qx = C.ry.x / 7, qy = -C.rx.x / 6;
+    if (HAS_T) for (const L of layers) L.el.style.translate = `${f(qx * L.a)}px ${f(qy * L.b)}px`;
+    if (photo && card.classList.contains("has-photo")) {
+      const hp = on && !cardPrs && AZ.type !== "touch" && targetEl === photo;
+      const ps = photoPrs ? .92 : hp ? 1.07 : on ? 1.03 : 1, pq = photoPrs ? .05 : 0;
+      stepS(P.x, on ? nx * 7 : 0, 150, 18, dt); stepS(P.y, on ? ny * 6 : 0, 150, 18, dt);
+      stepS(P.rx, on ? -ny * 10 : 0, 150, 18, dt); stepS(P.ry, on ? nx * 12 : 0, 150, 18, dt);
+      const pk = photoPrs ? 340 : 200, pc = photoPrs ? 28 : 15;
+      stepS(P.s, ps, pk, pc, dt); stepS(P.q, pq, pk, pc, dt);
+      const fy = Math.sin(now * .0013) * 5, fs = 1.03 + Math.sin(now * .0013 - .6) * .012, fr = Math.sin(now * .0009) * .5;
+      photo.style.transform = `translate(-50%,-53%) translate3d(${f(qx * 12 + P.x.x)}px,${f(qy * 10 + P.y.x + fy)}px,0) rotate(${f(fr)}deg) perspective(600px) rotateX(${f(P.rx.x)}deg) rotateY(${f(P.ry.x)}deg) scale(${f(fs * P.s.x * (1 + P.q.x))},${f(fs * P.s.x * (1 - P.q.x))})`;
+    }
+  }
+
+  // ---- Single delegated input layer + one rAF loop ----
+  let rafId = 0, last = 0, hot = null, pressSt = null, targetEl = null, sy = scrollY, iw = innerWidth;
+  const wake = () => { if (!rafId) { last = performance.now(); rafId = requestAnimationFrame(tick); } };
+
+  let lastIdle = 0;
+  function tick(now) {
+    rafId = 0;
+    if (coarse && !active.size && !cardPrs && now > relT && now - lastIdle < 32) { rafId = requestAnimationFrame(tick); return; }
+    lastIdle = now;
+    const dt = Math.min(.032, (now - last) / 1000) || .016; last = now;
+    if (innerWidth !== iw) { iw = innerWidth; cRect = null; if (card) { cw = card.offsetWidth; ch = card.offsetHeight; } for (const s of active) s.r = null; }
+    if (scrollY !== sy) {
+      sy = scrollY; cRect = null; for (const s of active) s.r = null;
+      if (AZ.type !== "touch" && AZ.inWin && (hot || cRect === null)) targetEl = document.elementFromPoint(AZ.x, AZ.y);
+    }
+    let next = null;
+    if (AZ.type !== "touch" && AZ.inWin && targetEl && targetEl.closest) { const el = targetEl.closest(FX); if (el && !el.disabled) next = getSt(el); }
+    if (next !== hot) {
+      if (hot) { hot.hov = false; hot.k = 170; hot.c = 22; wakeSt(hot); }
+      if (next) { next.hov = true; next.r = null; next.k = 190; next.c = 24; wakeSt(next); }
+      hot = next;
+    }
+    for (const st of active) stepSt(st, dt);
+    if (card && vis && glow) stepCard(dt, now);
+    const cardLive = card && vis && !document.hidden && (!AZ.lite || cardPrs || now < relT + 300 || (AZ.inWin && AZ.type !== "touch"));
+    if (active.size || cardLive) rafId = requestAnimationFrame(tick);
+  }
+
+  const setPointer = e => { AZ.x = e.clientX; AZ.y = e.clientY; AZ.type = e.pointerType || "mouse"; AZ.inWin = true; AZ.last = performance.now(); targetEl = e.target; };
+  document.addEventListener("pointermove", e => { setPointer(e); wake(); }, {passive:true});
+  document.addEventListener("pointerdown", e => {
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    setPointer(e);
+    const el = e.target.closest ? e.target.closest(FX) : null;
+    if (el && !el.disabled) {
+      const st = getSt(el); st.prs = true; st.r = null; st.k = 320; st.c = 28; wakeSt(st); pressSt = st;
+      if (!el.matches(".brand,.footer a")) ripple(el, e, 1.8);
+    }
+    if (card && card.contains(e.target)) {
+      cardPrs = true; photoPrs = e.target === photo; cRect = null; ripple(card, e, 1.5);
+    }
+    wake();
+  }, {passive:true});
+  const release = e => {
+    if (pressSt) { pressSt.prs = false; pressSt.k = 230; pressSt.c = 14; wakeSt(pressSt); pressSt = null; }
+    if (cardPrs) { cardPrs = false; photoPrs = false; ck = 230; cc = 14; relT = performance.now() + 650; }
+    if (e && e.pointerType === "touch") { AZ.inWin = false; targetEl = null; }
+    wake();
+  };
+  document.addEventListener("pointerup", release, {passive:true});
+  document.addEventListener("pointercancel", release, {passive:true});
+  addEventListener("blur", () => release());
+  root.addEventListener("mouseleave", () => { AZ.inWin = false; targetEl = null; wake(); });
+  document.addEventListener("visibilitychange", wake);
+
+  root.classList.add("az-fx");
+  wake();
+})();
+</script>
+
+<script>
+/* AZ Ocean Field — original 2D water surface; reacts to pointer/touch with light, swell and ripples. No blur. */
 (() => {
   const canvas = document.getElementById('az-ocean');
   if (!canvas) return;
   const ctx = canvas.getContext('2d', { alpha:false, desynchronized:true });
   if (!ctx) return;
+  const AZ = window.AZ || (window.AZ = {x:-1e4, y:-1e4, inWin:false, type:'mouse', last:0, lite:false});
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const root = document.documentElement;
-  let w=0,h=0,dpr=1,last=0,raf=0,t=0,visible=true;
-  const ripples=[];
-  const pointer={x:.5,y:.5,active:false};
+  let w=0,h=0,dpr=1,last=0,lastDraw=0,raf=0,t=0,visible=true,pe=0,lrx=-1e4,lry=-1e4,ema=16.7,frames=0;
+  const ripples=[], ys=[];
+  let gcache={k:''}, scrollT=0, rw=0, rh=0;
   function resize(){
-    w=innerWidth;h=innerHeight;dpr=Math.min(devicePixelRatio||1,.85);
+    w=innerWidth;h=innerHeight;rw=w;rh=h;dpr=Math.min(devicePixelRatio||1,AZ.lite?.6:(innerWidth<=760?.75:1));
     canvas.width=Math.max(1,Math.round(w*dpr));canvas.height=Math.max(1,Math.round(h*dpr));
-    ctx.setTransform(dpr,0,0,dpr,0,0);draw(0,true);
+    ctx.setTransform(dpr,0,0,dpr,0,0);draw();
   }
-  function ripple(x,y){ripples.push({x,y,start:t,life:1});if(ripples.length>7)ripples.shift();wake();}
-  function draw(ms,staticFrame=false){
-    const light=root.dataset.theme==='light';
-    const g=ctx.createLinearGradient(0,0,w,h);
-    if(light){g.addColorStop(0,'#72c9c7');g.addColorStop(.48,'#168da0');g.addColorStop(1,'#064b68')}
-    else{g.addColorStop(0,'#061b34');g.addColorStop(.48,'#07536a');g.addColorStop(1,'#031a31')}
-    ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
-    // Wide, slow swell layers.
-    for(let layer=0;layer<4;layer++){
+  function ripple(x,y,s=1){ripples.push({x,y,start:t,s});if(ripples.length>(AZ.lite?4:7))ripples.shift();lrx=x;lry=y;wake();}
+  function draw(){
+    const light=root.dataset.theme==='light', lite=AZ.lite, px=AZ.x, py=AZ.y, pOn=pe>.01;
+    const gk=(light?1:0)+'|'+w+'|'+h;
+    if(gk!==gcache.k){
+      const g=ctx.createLinearGradient(0,0,w,h);
+      if(light){g.addColorStop(0,'#72c9c7');g.addColorStop(.48,'#168da0');g.addColorStop(1,'#064b68')}
+      else{g.addColorStop(0,'#061b34');g.addColorStop(.48,'#07536a');g.addColorStop(1,'#031a31')}
+      const veil=ctx.createLinearGradient(0,0,0,h);
+      veil.addColorStop(0,light?'rgba(231,255,249,.08)':'rgba(0,9,22,.18)');
+      veil.addColorStop(.55,light?'rgba(4,48,60,.02)':'rgba(0,8,20,.12)');
+      veil.addColorStop(1,light?'rgba(0,45,56,.10)':'rgba(0,7,19,.24)');
+      gcache={k:gk,g,veil};
+    }
+    ctx.fillStyle=gcache.g;ctx.fillRect(0,0,w,h);
+    // Wide, slow swell layers. Points are computed once, then filled and stroked.
+    const step=lite?18:(w<=760?12:8);
+    for(let layer=0;layer<(lite?3:4);layer++){
       const base=h*(.24+layer*.205),amp=12+layer*7,phase=t*(.00024+layer*.00008)+layer*1.7;
+      const wp=pOn?pe*11*Math.exp(-((base-py)*(base-py))/40000):0;
+      let n=0;
+      for(let x=0;x<=w+8;x+=step){
+        let y=base+Math.sin(x*.006+phase)*amp+Math.sin(x*.014-phase*1.3)*amp*.28;
+        if(wp>.05){const dx=x-px;if(dx*dx<90000)y+=wp*Math.exp(-dx*dx/16900)*Math.sin(dx*.05-t*.005)}
+        for(let i=0;i<ripples.length;i++){
+          const r=ripples[i],age=(t-r.start)/1000,front=age*140;
+          if(age>2.3||Math.abs(base-r.y)>front+110)continue;
+          const e=Math.hypot(x-r.x,base-r.y)-front;
+          if(e*e<14400)y+=(1-age/2.3)*r.s*12*Math.exp(-e*e/2200)*Math.sin(e*.06);
+        }
+        ys[n++]=y;
+      }
       ctx.beginPath();ctx.moveTo(0,h);
-      for(let x=0;x<=w+8;x+=8){const y=base+Math.sin(x*.006+phase)*amp+Math.sin(x*.014-phase*1.3)*amp*.28;ctx.lineTo(x,y)}
+      for(let i=0,x=0;i<n;i++,x+=step)ctx.lineTo(x,ys[i]);
       ctx.lineTo(w,h);ctx.closePath();
       ctx.fillStyle=light?`rgba(190,255,240,${.035+layer*.012})`:`rgba(45,190,196,${.045+layer*.014})`;ctx.fill();
       ctx.beginPath();
-      for(let x=0;x<=w+8;x+=8){const y=base+Math.sin(x*.006+phase)*amp+Math.sin(x*.014-phase*1.3)*amp*.28;x===0?ctx.moveTo(x,y):ctx.lineTo(x,y)}
+      for(let i=0,x=0;i<n;i++,x+=step)i?ctx.lineTo(x,ys[i]):ctx.moveTo(x,ys[i]);
       ctx.strokeStyle=light?'rgba(231,255,246,.11)':'rgba(164,250,241,.13)';ctx.lineWidth=1;ctx.stroke();
     }
-    // Broken caustic ribbons: a moving, irregular mesh, kept subtle behind text.
+    // Broken caustic ribbons; points near the pointer are gently pushed aside and catch more light.
     ctx.save();ctx.globalCompositeOperation='screen';
-    const spacing=Math.max(42,Math.min(68,w/16));
-    for(let row=0;row<Math.ceil(h/spacing)+1;row++){
+    const spacing=Math.max(42,Math.min(68,w/16))*(w<=760?1.5:1);
+    for(let row=0;row<(lite?0:Math.ceil(h/spacing)+1);row++){
       for(let col=0;col<Math.ceil(w/spacing)+1;col++){
-        const x=col*spacing+Math.sin(row*.8+t*.00035)*10;
-        const y=row*spacing+Math.cos(col*.7+t*.0003)*9;
-        const shimmer=(Math.sin(col*.9+row*.7+t*.0011)+1)*.5;
+        let x=col*spacing+Math.sin(row*.8+t*.00035)*10;
+        let y=row*spacing+Math.cos(col*.7+t*.0003)*9;
+        let shimmer=(Math.sin(col*.9+row*.7+t*.0011)+1)*.5;
+        if(pOn){
+          const dx=x-px,dy=y-py,d2=dx*dx+dy*dy;
+          if(d2<44100){const d=Math.sqrt(d2)+1,k=Math.exp(-d2/12000);x+=dx/d*pe*16*k;y+=dy/d*pe*16*k;shimmer=Math.min(1,shimmer+k*pe*.5)}
+        }
         ctx.beginPath();ctx.ellipse(x,y,spacing*(.18+shimmer*.10),spacing*.055,Math.sin(row+col)*.22,0,Math.PI*2);
         ctx.strokeStyle=light?`rgba(239,255,244,${.025+shimmer*.055})`:`rgba(181,255,239,${.025+shimmer*.065})`;
         ctx.lineWidth=1.2;ctx.stroke();
       }
     }
     ctx.restore();
-    // Pointer/touch ripples expand and fade.
+    // Touch / click / trail ripples expand and fade.
     for(let i=ripples.length-1;i>=0;i--){
       const r=ripples[i],age=(t-r.start)/1000;
       if(age>2.3){ripples.splice(i,1);continue}
-      const radius=age*82+4,alpha=(1-age/2.3)*.26;
+      const radius=(age*82+4)*(.7+.3*r.s),alpha=(1-age/2.3)*.26*Math.min(1,r.s+.2);
       for(let ring=0;ring<2;ring++){
         ctx.beginPath();ctx.ellipse(r.x,r.y,radius+ring*12,(radius+ring*12)*.48,0,0,Math.PI*2);
         ctx.strokeStyle=light?`rgba(255,255,255,${alpha*.8})`:`rgba(192,255,244,${alpha})`;ctx.lineWidth=1.3;ctx.stroke();
       }
     }
     // Readability veil keeps the hero and glass cards legible.
-    const veil=ctx.createLinearGradient(0,0,0,h);
-    veil.addColorStop(0,light?'rgba(231,255,249,.08)':'rgba(0,9,22,.18)');
-    veil.addColorStop(.55,light?'rgba(4,48,60,.02)':'rgba(0,8,20,.12)');
-    veil.addColorStop(1,light?'rgba(0,45,56,.10)':'rgba(0,7,19,.24)');
-    ctx.fillStyle=veil;ctx.fillRect(0,0,w,h);
+    ctx.fillStyle=gcache.veil;ctx.fillRect(0,0,w,h);
+    // Pointer-following surface light: soft radial glow plus small glints (no blur filter).
+    if(pOn){
+      const R=Math.max(150,Math.min(w,h)*.22);
+      ctx.save();ctx.globalCompositeOperation='screen';
+      const lg=ctx.createRadialGradient(px,py,0,px,py,R);
+      lg.addColorStop(0,light?`rgba(255,255,255,${.16*pe})`:`rgba(190,255,244,${.14*pe})`);
+      lg.addColorStop(.45,light?`rgba(255,255,255,${.05*pe})`:`rgba(150,240,230,${.045*pe})`);
+      lg.addColorStop(1,'rgba(0,0,0,0)');
+      ctx.fillStyle=lg;ctx.fillRect(px-R,py-R,R*2,R*2);
+      ctx.strokeStyle=light?`rgba(255,255,255,${.3*pe})`:`rgba(210,255,250,${.24*pe})`;ctx.lineWidth=1.2;
+      for(let i=-1;i<=1;i++){ctx.beginPath();ctx.ellipse(px+i*R*.3,py+i*6+Math.sin(t*.003+i*2)*5+10,26-Math.abs(i)*7,2.6,0,0,Math.PI*2);ctx.stroke()}
+      ctx.restore();
+    }
   }
-  function frame(now){raf=0;if(!visible)return;if(now-last<32){raf=requestAnimationFrame(frame);return}const dt=Math.min(50,now-last||32);last=now;t+=dt;draw(now);if(!reduce||ripples.length)raf=requestAnimationFrame(frame)}
+  function frame(now){
+    raf=0;if(!visible)return;
+    const raw=now-(last||now-16.7);last=now;
+    // Weak-device detection: sustained slow frames switch the whole page to lite mode.
+    if(raw<100){ema+=(raw-ema)*.05;if(++frames>90&&ema>26&&!AZ.lite){AZ.lite=true;root.classList.add('az-lite');resize()}}
+    // The ocean drifts slowly, so its full redraw is capped near 60fps (30 on weak devices); UI motion runs at native refresh.
+    if(now-lastDraw>=(AZ.lite?42:(w<=760?28:14))&&!((AZ.lite||w<=760)&&now-scrollT<140)){
+      const dt=Math.min(50,now-lastDraw||16.7);lastDraw=now;t+=dt;
+      const live=AZ.inWin&&performance.now()-AZ.last<1400&&!reduce;
+      pe+=((live?1:0)-pe)*Math.min(1,dt*.006);
+      if(live&&Math.hypot(AZ.x-lrx,AZ.y-lry)>(AZ.type==='touch'?70:110))ripple(AZ.x,AZ.y,.55);
+      draw();
+    }
+    if(!reduce||ripples.length)raf=requestAnimationFrame(frame);
+  }
   function wake(){if(!raf&&visible&&!reduce)raf=requestAnimationFrame(frame)}
   resize();
   if(!reduce)wake();
-  addEventListener('resize',resize,{passive:true});
+  addEventListener('resize',()=>{if(innerWidth!==rw||Math.abs(innerHeight-rh)>160)resize()},{passive:true});
+  addEventListener('scroll',()=>{scrollT=performance.now()},{passive:true});
   document.addEventListener('visibilitychange',()=>{visible=!document.hidden;if(visible){last=0;wake()}else if(raf){cancelAnimationFrame(raf);raf=0}});
-  addEventListener('pointerdown',e=>{if(e.pointerType==='touch'||e.pointerType==='pen'||e.button===0)ripple(e.clientX,e.clientY)},{passive:true});
-  addEventListener('keydown',e=>{if(e.key==='Enter'&&document.activeElement?.tagName==='BUTTON'){const r=document.activeElement.getBoundingClientRect();ripple(r.left+r.width/2,r.top+r.height/2)} });
-  new MutationObserver(()=>{draw(t,true);wake()}).observe(root,{attributes:true,attributeFilter:['data-theme']});
-  if(reduce)draw(0,true);
+  addEventListener('pointerdown',e=>{if(e.pointerType==='touch'||e.pointerType==='pen'||e.button===0)ripple(e.clientX,e.clientY,1)},{passive:true});
+  addEventListener('keydown',e=>{if(e.key==='Enter'&&document.activeElement?.tagName==='BUTTON'){const r=document.activeElement.getBoundingClientRect();ripple(r.left+r.width/2,r.top+r.height/2,1)} });
+  new MutationObserver(()=>{draw();wake()}).observe(root,{attributes:true,attributeFilter:['data-theme']});
+  if(reduce)draw();
 })();
 </script>
 
+<script>
+/* App behaviour: block pinch/double-tap zoom (old iOS), block image long-press menu, offline cache */
+(() => {
+  ["gesturestart","gesturechange","gestureend"].forEach(t => document.addEventListener(t, e => e.preventDefault()));
+  document.addEventListener("contextmenu", e => { if (e.target.tagName === "IMG" && matchMedia("(pointer:coarse)").matches) e.preventDefault(); });
+  if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost"))
+    addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+})();
+</script>
 </body>
 </html>

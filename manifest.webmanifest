@@ -1,0 +1,16 @@
+{
+  "name": "Arghya Sarkar — Arghya Zeo",
+  "short_name": "Arghya Zeo",
+  "description": "The personal website of Arghya Sarkar.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#041522",
+  "theme_color": "#041522",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
